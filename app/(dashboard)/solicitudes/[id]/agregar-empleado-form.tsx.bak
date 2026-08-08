@@ -1,0 +1,40 @@
+'use client'
+
+import { useRef, useState, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
+import { agregarEmpleadoPorLegajoAction } from './actions'
+
+export function AgregarEmpleadoForm({ solicitudId }: { solicitudId: string }) {
+  const [pending, startTransition] = useTransition()
+  const [error, setError] = useState<string | null>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const router = useRouter()
+
+  function onSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    const legajo = inputRef.current?.value ?? ''
+    if (!legajo) return
+
+    startTransition(async () => {
+      const result = await agregarEmpleadoPorLegajoAction(solicitudId, legajo)
+      setError(result.error ?? null)
+      if (!result.error) {
+        if (inputRef.current) inputRef.current.value = ''
+        router.refresh()
+      }
+    })
+  }
+
+  return (
+    <form onSubmit={onSubmit} className="flex items-end gap-2">
+      <div className="space-y-1">
+        <label className="text-sm font-medium">Agregar empleado (legajo)</label>
+        <input ref={inputRef} type="text" className="rounded border px-3 py-1.5 text-sm" placeholder="Ej: 1001" />
+      </div>
+      <button type="submit" disabled={pending} className="rounded bg-slate-900 px-3 py-1.5 text-sm text-white disabled:opacity-50">
+        {pending ? 'Agregando...' : 'Agregar'}
+      </button>
+      {error && <p className="text-sm text-red-600">{error}</p>}
+    </form>
+  )
+}

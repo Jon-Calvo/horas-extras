@@ -1,0 +1,68 @@
+-- ============================================================================
+-- 0025 · rpc_actualizar_valor_categoria (soporte para el ABM de Fase 5)
+-- ----------------------------------------------------------------------------
+-- Qué hacemos: agregar un nuevo valor vigente para una categoría (ej: ajuste
+-- de paritaria) requiere DOS pasos que tienen que ser atómicos: cerrar la
+-- vigencia_hasta del valor actualmente abierto, y abrir uno nuevo desde la
+-- fecha indicada. Hacerlo en dos llamadas separadas desde el frontend puede
+-- chocar contra el EXCLUDE constraint de 0012 (si el nuevo `vigencia_desde`
+-- es igual o anterior al valor todavía abierto) o dejar un hueco de fechas
+-- sin cobertura. Este RPC lo resuelve en una sola transacción.
+-- ============================================================================
+
+create or replace function rpc_actualizar_valor_categoria(
+  p_categoria_tipo_id uuid,
+  p_valor_hora numeric,
+  p_moneda text,
+  p_vigencia_desde date default current_date
+)
+returns categoria_valores
+language plpgsql security definer set search_path = public as $$
+declare
+  v_actual categoria_valores;
+  v_nuevo categoria_valores;
+begin
+  if not fn_es_admin() then
+    raise exception 'Solo un administrador puede modificar valores de categorías';
+  end if;
+
+  if not exists (select 1 from categoria_tipos where id = p_categoria_tipo_id) then
+    raise exception 'La categoría no existe';
+  end if;
+
+  if p_valor_hora < 0 then
+    raise exception 'El valor hora no puede ser negativo';
+  end if;
+
+  -- Vigencia abierta actual (si existe)
+  select * into v_actual
+    from categoria_valores
+    where categoria_tipo_id = p_categoria_tipo_id and vigencia_hasta is null;
+
+  if v_actual.id is not null then
+    if p_vigencia_desde <= v_actual.vigencia_desde then
+      raise exception 'La nueva vigencia (%) debe ser posterior al inicio de la vigencia actual (%)', p_vigencia_desde, v_actual.vigencia_desde;
+    end if;
+    update categoria_valores
+      set vigencia_hasta = p_vigencia_desde - 1
+      where id = v_actual.id;
+  end if;
+
+  insert into categoria_valores (categoria_tipo_id, valor_hora, moneda, vigencia_desde)
+  values (p_categoria_tipo_id, p_valor_hora, p_moneda, p_vigencia_desde)
+  returning * into v_nuevo;
+
+  return v_nuevo;
+end;
+$$;
+
+-- ============================================================================
+-- Cómo probar:
+--   select * from rpc_actualizar_valor_categoria(
+--     (select id from categoria_tipos where codigo='CAT001'), 3800.00, 'ARS', current_date + 1
+--   );
+--   select codigo, valor_hora, vigencia_desde, vigencia_hasta
+--     from categoria_valores cv join categoria_tipos ct on ct.id = cv.categoria_tipo_id
+--     where ct.codigo = 'CAT001' order by vigencia_desde;
+--   -- debe verse el valor viejo con vigencia_hasta = hoy, y el nuevo abierto desde mañana
+-- ============================================================================
