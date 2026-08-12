@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { AdminEntityCrud, type CampoAdmin } from '@/components/admin/admin-entity-crud'
-import { guardarMotivo } from './actions'
+import { ExportarExcelBoton } from '@/components/excel/exportar-excel-boton'
+import { ImportarExcelGenerico } from '@/components/excel/importar-excel-generico'
+import { guardarMotivo, importarMotivo } from './actions'
 
 const CAMPOS: CampoAdmin[] = [
   { key: 'motivo', label: 'Motivo', type: 'text' },
@@ -23,7 +25,13 @@ export default async function MotivosPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-lg font-semibold">Motivos</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-lg font-semibold">Motivos</h1>
+        <div className="flex gap-2">
+          <ExportarExcelBoton campos={CAMPOS} filas={data ?? []} nombreArchivo="motivos" />
+          <ImportarExcelGenerico campos={CAMPOS} onGuardarFila={importarMotivo} />
+        </div>
+      </div>
       <p className="text-sm text-slate-500">
         Los motivos con <strong>&quot;Requiere aprobación&quot; desactivado</strong> autoaprueban y cierran la
         solicitud apenas se agrega el primer empleado.

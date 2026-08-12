@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { actualizarConfiguracionGeneral } from './actions'
+import { actualizarConfiguracionGeneral, forzarReseteoRanking } from './actions'
 
 export function ConfiguracionGeneralForm({
   inicial,
@@ -22,6 +22,22 @@ export function ConfiguracionGeneralForm({
   const [error, setError] = useState<string | null>(null)
   const [guardado, setGuardado] = useState(false)
   const router = useRouter()
+
+  const [pendingReseteo, startReseteo] = useTransition()
+  const [mensajeReseteo, setMensajeReseteo] = useState<string | null>(null)
+
+  function forzarReseteo() {
+    if (!confirm('Esto resetea el ranking de TODOS los empleados activos a 0 ahora mismo, sin esperar al corte de calendario. ¿Confirmás?')) return
+    startReseteo(async () => {
+      const result = await forzarReseteoRanking()
+      if (result.error) {
+        setMensajeReseteo(`Error: ${result.error}`)
+      } else {
+        setMensajeReseteo(`Reseteados ${result.cantidadReseteados ?? 0} empleados.`)
+        router.refresh()
+      }
+    })
+  }
 
   function guardar() {
     startTransition(async () => {
@@ -100,6 +116,21 @@ export function ConfiguracionGeneralForm({
       <button onClick={guardar} disabled={pending} className="rounded bg-slate-900 px-3 py-2 text-sm font-medium text-white disabled:opacity-50">
         {pending ? 'Guardando...' : 'Guardar configuración'}
       </button>
+
+      <div className="border-t pt-4">
+        <p className="text-xs font-medium text-slate-500">
+          Reseteo de ranking (automático todos los días a las 03:00 ART — solo actúa si corresponde según el
+          período configurado arriba)
+        </p>
+        {mensajeReseteo && <p className="mt-1 text-sm text-slate-600">{mensajeReseteo}</p>}
+        <button
+          onClick={forzarReseteo}
+          disabled={pendingReseteo}
+          className="mt-2 rounded border border-red-300 px-3 py-1.5 text-sm text-red-700 disabled:opacity-50"
+        >
+          {pendingReseteo ? 'Reseteando...' : 'Forzar reseteo ahora'}
+        </button>
+      </div>
     </div>
   )
 }

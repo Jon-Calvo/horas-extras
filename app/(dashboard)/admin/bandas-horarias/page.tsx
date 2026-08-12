@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { AdminEntityCrud, type CampoAdmin } from '@/components/admin/admin-entity-crud'
-import { guardarBandaHoraria } from './actions'
+import { ExportarExcelBoton } from '@/components/excel/exportar-excel-boton'
+import { ImportarExcelGenerico } from '@/components/excel/importar-excel-generico'
+import { guardarBandaHoraria, importarBandaHoraria,} from './actions'
 
 // dia_inicio/dia_fin en convención ISO (1=lunes...7=domingo) — igual que en
 // fn_dia_en_rango (0014). No hay validación de superposición entre bandas en
@@ -24,7 +26,13 @@ export default async function BandasHorariasPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-lg font-semibold">Bandas horarias</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-lg font-semibold">Bandas horarias</h1>
+        <div className="flex gap-2">
+          <ExportarExcelBoton campos={CAMPOS} filas={data ?? []} nombreArchivo="bandas-horarias" />
+          <ImportarExcelGenerico campos={CAMPOS} onGuardarFila={importarBandaHoraria} />
+        </div>
+      </div>
       <AdminEntityCrud campos={CAMPOS} filas={data ?? []} onGuardar={guardarBandaHoraria} />
     </div>
   )

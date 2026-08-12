@@ -21,6 +21,18 @@ export async function actualizarConfiguracionGeneral(valores: {
     })
     .eq('id', 1)
 
-  revalidatePath('/admin/configuracion')
+  if (!error) revalidatePath('/admin/configuracion')
   return { error: error?.message }
+}
+
+// El job automático corre todos los días vía pg_cron (0034) y decide solo
+// si corresponde resetear según el corte de calendario configurado. Esto
+// es para pruebas o para corregir un corte que no llegó a correr — resetea
+// SIN importar la fecha.
+export async function forzarReseteoRanking() {
+  const supabase = await createClient()
+  const { data, error } = await supabase.rpc('rpc_forzar_reseteo_ranking')
+
+  if (!error) revalidatePath('/admin/configuracion')
+  return { error: error?.message, cantidadReseteados: data as number | undefined }
 }

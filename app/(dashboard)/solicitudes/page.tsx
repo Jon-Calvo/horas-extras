@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { SolicitudesListado } from './solicitudes-listado'
 import type { SolicitudRow } from './columns'
 import { SolicitudesFiltros } from './solicitudes-filtros'
+import { ExportarSolicitudesBoton } from './exportar-solicitudes-boton'
 
 // Filtros del enunciado original: mes, año, fecha, rango de fechas, área,
 // sector, proceso, motivo, tipo de motivo, solicitante. Implementados:
@@ -72,7 +73,10 @@ export default async function SolicitudesPage({
 
   return (
     <div className="space-y-4">
-      <h1 className="text-lg font-semibold">Solicitudes</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-lg font-semibold">Solicitudes</h1>
+        <ExportarSolicitudesBoton filtros={params} />
+      </div>
 
       <SolicitudesFiltros
         opciones={{

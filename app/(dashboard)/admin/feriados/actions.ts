@@ -6,7 +6,10 @@ import { createClient } from '@/lib/supabase/server'
 export async function guardarFeriado(id: string | null, valores: Record<string, any>) {
   const supabase = await createClient()
 
-  const payload = { fecha: valores.fecha, descripcion: valores.descripcion }
+  const payload = {
+    fecha: valores.fecha,
+    descripcion: valores.descripcion,
+  }
 
   const { error } = id
     ? await supabase.from('feriados').update(payload).eq('id', id)
@@ -16,12 +19,21 @@ export async function guardarFeriado(id: string | null, valores: Record<string, 
   return { error: error?.message }
 }
 
+export async function importarFeriado(valores: Record<string, any>) {
+  return guardarFeriado(null, valores)
+}
+
 // Feriados es la única maestra con borrado físico: no tiene FK desde ninguna
 // tabla transaccional (solo se consulta por fecha en el motor de cálculo),
 // así que no hay riesgo de romper referencias.
 export async function eliminarFeriado(id: string) {
   const supabase = await createClient()
-  const { error } = await supabase.from('feriados').delete().eq('id', id)
+
+  const { error } = await supabase
+    .from('feriados')
+    .delete()
+    .eq('id', id)
+
   revalidatePath('/admin/feriados')
   return { error: error?.message }
 }

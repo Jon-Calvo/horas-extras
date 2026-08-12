@@ -11,6 +11,54 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 //   const rpc = solicitudesRpc(supabase)
 //   const { data, error } = await rpc.crearSolicitud({ ... })
 
+export function empleadosRpc(supabase: SupabaseClient) {
+  return {
+    upsertEmpleado: (args: {
+      legajo: string
+      nombreCompleto: string
+      categoriaCodigo: string
+      areaId: string | null
+      sectorId: string | null
+      procesoId: string | null
+      estado?: 'ACTIVO' | 'INACTIVO'
+    }) =>
+      supabase.rpc('rpc_upsert_empleado', {
+        p_legajo: args.legajo,
+        p_nombre_completo: args.nombreCompleto,
+        p_categoria_codigo: args.categoriaCodigo,
+        p_area_id: args.areaId,
+        p_sector_id: args.sectorId,
+        p_proceso_id: args.procesoId,
+        p_estado: args.estado ?? 'ACTIVO',
+      }),
+
+    importarEmpleadoExcel: (args: {
+      legajo: string
+      nombreCompleto: string
+      categoriaCodigo: string
+      areaNombre: string
+      sectorNombre: string
+      procesoNombre: string
+      estado?: string
+    }) =>
+      supabase.rpc('rpc_importar_empleado_excel', {
+        p_legajo: args.legajo,
+        p_nombre_completo: args.nombreCompleto,
+        p_categoria_codigo: args.categoriaCodigo,
+        p_area_nombre: args.areaNombre || null,
+        p_sector_nombre: args.sectorNombre || null,
+        p_proceso_nombre: args.procesoNombre || null,
+        p_estado: args.estado || 'ACTIVO',
+      }),
+
+    fusionarEmpleados: (conservarId: string, fusionarId: string) =>
+      supabase.rpc('rpc_fusionar_empleados', { p_conservar_id: conservarId, p_fusionar_id: fusionarId }),
+
+    eliminarOInactivarEmpleado: (empleadoId: string) =>
+      supabase.rpc('rpc_eliminar_o_inactivar_empleado', { p_empleado_id: empleadoId }).maybeSingle(),
+  }
+}
+
 export function maestrosRpc(supabase: SupabaseClient) {
   return {
     actualizarValorCategoria: (args: { categoriaTipoId: string; valorHora: number; moneda: string; vigenciaDesde: string }) =>

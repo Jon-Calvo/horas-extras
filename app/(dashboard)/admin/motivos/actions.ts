@@ -20,3 +20,14 @@ export async function guardarMotivo(id: string | null, valores: Record<string, a
   revalidatePath('/admin/motivos')
   return { error: error?.message }
 }
+
+/**
+ * Server Action específica para ImportarExcelGenerico.
+ *
+ * No usamos una función inline en page.tsx porque Next.js no permite
+ * pasar event handlers/funciones arbitrarias desde un Server Component
+ * hacia un Client Component.
+ */
+export async function importarMotivo(valores: Record<string, any>) {
+  return guardarMotivo(null, valores)
+}

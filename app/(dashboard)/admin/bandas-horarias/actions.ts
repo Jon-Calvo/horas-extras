@@ -24,3 +24,7 @@ export async function guardarBandaHoraria(id: string | null, valores: Record<str
   revalidatePath('/admin/bandas-horarias')
   return { error: error?.message }
 }
+
+export async function importarBandaHoraria(valores: Record<string, any>) {
+  return guardarBandaHoraria(null, valores)
+}

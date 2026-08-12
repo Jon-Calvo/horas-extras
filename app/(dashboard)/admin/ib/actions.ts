@@ -7,7 +7,10 @@ export async function guardarIb(id: string | null, valores: Record<string, any>)
   const supabase = await createClient()
 
   const rankingInferior = Number(valores.ranking_inferior)
-  const rankingSuperior = valores.ranking_superior === '' ? null : Number(valores.ranking_superior)
+  const rankingSuperior =
+    valores.ranking_superior === ''
+      ? null
+      : Number(valores.ranking_superior)
 
   if (rankingSuperior !== null && rankingSuperior < rankingInferior) {
     return { error: 'El ranking superior no puede ser menor al inferior' }
@@ -21,8 +24,13 @@ export async function guardarIb(id: string | null, valores: Record<string, any>)
   }
 
   const { error } = id
-    ? await supabase.from('ib_configuracion').update(payload).eq('id', id)
-    : await supabase.from('ib_configuracion').insert(payload)
+    ? await supabase
+        .from('ib_configuracion')
+        .update(payload)
+        .eq('id', id)
+    : await supabase
+        .from('ib_configuracion')
+        .insert(payload)
 
   revalidatePath('/admin/ib')
 
@@ -30,8 +38,14 @@ export async function guardarIb(id: string | null, valores: Record<string, any>)
   // ("conflicting key value violates exclusion constraint...") — lo
   // traducimos acá.
   if (error?.message.includes('exclusion constraint')) {
-    return { error: 'Ese rango de ranking se superpone con otro IB ya cargado' }
+    return {
+      error: 'Ese rango de ranking se superpone con otro IB ya cargado',
+    }
   }
 
   return { error: error?.message }
+}
+
+export async function importarIb(valores: Record<string, any>) {
+  return guardarIb(null, valores)
 }

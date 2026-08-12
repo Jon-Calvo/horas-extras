@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { AdminEntityCrud, type CampoAdmin } from '@/components/admin/admin-entity-crud'
-import { guardarIb } from './actions'
+import { ExportarExcelBoton } from '@/components/excel/exportar-excel-boton'
+import { ImportarExcelGenerico } from '@/components/excel/importar-excel-generico'
+import { guardarIb, importarIb,} from './actions'
 
 const CAMPOS: CampoAdmin[] = [
   { key: 'descripcion', label: 'Descripción', type: 'text' },
@@ -15,7 +17,13 @@ export default async function IbPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-lg font-semibold">IB (bandas de ranking)</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-lg font-semibold">IB (bandas de ranking)</h1>
+        <div className="flex gap-2">
+          <ExportarExcelBoton campos={CAMPOS} filas={data ?? []} nombreArchivo="ib" />
+          <ImportarExcelGenerico campos={CAMPOS} onGuardarFila={importarIb} />
+        </div>
+      </div>
       <p className="text-sm text-slate-500">
         Los rangos no pueden superponerse — el sistema los usa para calcular automáticamente el IB de cada empleado
         según su ranking de horas.
