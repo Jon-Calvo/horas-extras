@@ -1,26 +1,100 @@
 @import "tailwindcss";
 
+/*
+  Tailwind v4:
+  las utilidades dark:* responden a la clase .dark
+  colocada sobre <html>.
+*/
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  Variables base.
+  ThemeStyleTag las complementa/sobrescribe con los valores
+  reales de la configuración de apariencia.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+
+  --app-background: #f8fafc;
+  --app-surface: #ffffff;
+  --app-border: #e2e8f0;
+  --app-text: #0f172a;
+  --app-text-muted: #64748b;
+
+  --app-primary: #2563eb;
+  --app-primary-hover: #1d4ed8;
+  --app-secondary: #64748b;
+  --app-accent: #7c3aed;
+  --app-success: #16a34a;
+  --app-warning: #d97706;
+  --app-danger: #dc2626;
 }
 
+/*
+  Fallback estructural del modo oscuro.
+  ThemeStyleTag establece los valores definitivos.
+*/
+.dark {
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+
+  --app-background: #0f172a;
+  --app-surface: #1e293b;
+  --app-border: #334155;
+  --app-text: #f1f5f9;
+  --app-text-muted: #94a3b8;
+}
+
+/*
+  Registramos las variables de la aplicación como colores de Tailwind.
+
+  Ejemplos de utilities que ahora estarán disponibles:
+
+    bg-primary
+    bg-primary-hover
+    bg-secondary
+    bg-accent
+    bg-surface
+    bg-success
+    bg-warning
+    bg-danger
+    bg-background
+
+    text-text
+    text-text-muted
+
+    border-border
+
+  Los valores reales vienen de --app-*.
+*/
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--app-background);
+  --color-foreground: var(--app-text);
+
+  --color-primary: var(--app-primary);
+  --color-primary-hover: var(--app-primary-hover);
+  --color-secondary: var(--app-secondary);
+  --color-accent: var(--app-accent);
+  --color-surface: var(--app-surface);
+  --color-border: var(--app-border);
+  --color-text: var(--app-text);
+  --color-text-muted: var(--app-text-muted);
+  --color-success: var(--app-success);
+  --color-warning: var(--app-warning);
+  --color-danger: var(--app-danger);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  min-height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--app-background);
+  color: var(--app-text);
   font-family: Arial, Helvetica, sans-serif;
 }

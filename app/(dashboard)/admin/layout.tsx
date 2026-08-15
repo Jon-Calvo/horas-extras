@@ -5,6 +5,7 @@ const SECCIONES = [
   { href: '/admin/usuarios', label: 'Usuarios' },
   { href: '/admin/empleados', label: 'Empleados' },
   { href: '/admin/organizacion', label: 'Organización' },
+  { href: '/admin/apariencia', label: 'Apariencia' },
   { href: '/admin/categorias', label: 'Categorías' },
   { href: '/admin/bandas-horarias', label: 'Bandas horarias' },
   { href: '/admin/motivos', label: 'Motivos' },
@@ -41,4 +42,3 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     </div>
   )
 }
-

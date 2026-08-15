@@ -1,19 +1,14 @@
 import { logout } from '../login/actions'
 import { createClient } from '@/lib/supabase/server'
 import { Sidebar } from '@/components/sidebar'
+import { obtenerConfiguracionApariencia } from '@/lib/theme/obtener-configuracion-apariencia'
 
-export default async function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
-
   const {
     data: { user },
   } = await supabase.auth.getUser()
-
-  const { data: esAdmin } = await supabase.rpc('fn_es_admin')
+  const [{ data: esAdmin }, config] = await Promise.all([supabase.rpc('fn_es_admin'), obtenerConfiguracionApariencia()])
 
   const logoutForm = (
     <form action={logout}>
@@ -24,13 +19,15 @@ export default async function DashboardLayout({
   )
 
   return (
-    <div className="flex min-h-screen bg-slate-50 md:flex-row flex-col">
+    <div className="flex min-h-screen bg-background text-text md:flex-row flex-col">
       <Sidebar
         userEmail={user?.email}
         esAdmin={Boolean(esAdmin)}
+        logoUrl={config.logoUrl}
+        nombreEmpresa={config.nombreEmpresa}
         logoutForm={logoutForm}
       />
-      <main className="flex-1 p-6">{children}</main>
+      <main className="flex-1 p-6 text-text">{children}</main>
     </div>
   )
 }

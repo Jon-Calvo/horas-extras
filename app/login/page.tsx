@@ -1,4 +1,5 @@
 import { login } from './actions'
+import { LogoEmpresa } from '@/components/logo-empresa'
 
 export default async function LoginPage({
   searchParams,
@@ -13,7 +14,11 @@ export default async function LoginPage({
         action={login}
         className="w-full max-w-sm space-y-4 rounded-lg border bg-white p-6 shadow-sm"
       >
-        <h1 className="text-lg font-semibold">Gestión de Horas Extras</h1>
+        {/* Antes: <h1>Gestión de Horas Extras</h1> fijo. Ahora usa el logo
+            y nombre configurados en /admin/apariencia — LogoEmpresa
+            funciona acá sin sesión porque la RLS de 0038 da SELECT
+            también a 'anon'. */}
+        <LogoEmpresa tamano="lg" variante="logo-y-nombre" />
 
         {error && (
           <p className="rounded bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>
@@ -45,9 +50,15 @@ export default async function LoginPage({
           />
         </div>
 
+        {/* style inline con la variable CSS en vez de bg-primary: funciona
+            ya mismo sin depender de que Tailwind ya esté configurado para
+            reconocer esa utility (ver INTEGRACION.md) — una vez que
+            registres bg-primary en globals.css/tailwind.config, se puede
+            simplificar a className="bg-primary hover:bg-primary-hover". */}
         <button
           type="submit"
-          className="w-full rounded bg-slate-900 px-3 py-2 text-sm font-medium text-white hover:bg-slate-800"
+          style={{ backgroundColor: 'var(--color-primary)' }}
+          className="w-full rounded px-3 py-2 text-sm font-medium text-white"
         >
           Ingresar
         </button>

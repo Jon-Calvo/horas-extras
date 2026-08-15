@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { LogoEmpresaPresentacional } from './logo-empresa-presentacional'
+import { SelectorTema } from './selector-tema'
 
 const LINKS = [
   { href: '/solicitudes', label: 'Solicitudes' },
@@ -10,17 +12,22 @@ const LINKS = [
   { href: '/admin', label: 'Administración' },
 ]
 
-// Misma funcionalidad que el nav anterior (mismos 2 links + logout), solo
-// cambia la presentación: fija a la izquierda en desktop (md+), y un drawer
-// deslizable con overlay en mobile. Sin librerías nuevas, solo Tailwind +
-// estado local para abrir/cerrar en mobile.
+// Misma funcionalidad que antes (mismos 3 links + logout), con dos
+// agregados de este módulo: el logo/nombre reales (antes "Horas Extras"
+// fijo, ahora vienen por props desde (dashboard)/layout.tsx, que sí puede
+// resolver <LogoEmpresa /> por ser Server Component) y el selector de
+// tema personal (cualquier usuario, no requiere ser admin).
 export function Sidebar({
   userEmail,
   esAdmin,
+  logoUrl,
+  nombreEmpresa,
   logoutForm,
 }: {
   userEmail: string | undefined
   esAdmin: boolean
+  logoUrl: string | null
+  nombreEmpresa: string
   logoutForm: React.ReactNode
 }) {
   const [abierto, setAbierto] = useState(false)
@@ -30,7 +37,9 @@ export function Sidebar({
   const contenido = (
     <div className="flex h-full flex-col justify-between">
       <div>
-        <div className="px-4 py-4 text-sm font-semibold">Horas Extras</div>
+        <div className="px-4 py-4">
+          <LogoEmpresaPresentacional logoUrl={logoUrl} nombreEmpresa={nombreEmpresa} tamano={28} />
+        </div>
         <nav className="flex flex-col gap-1 px-2">
           {links.map((link) => {
             const activo = pathname === link.href
@@ -40,7 +49,9 @@ export function Sidebar({
                 href={link.href}
                 onClick={() => setAbierto(false)}
                 className={`rounded px-3 py-2 text-sm font-medium ${
-                  activo ? 'bg-slate-900 text-white' : 'text-slate-700 hover:bg-slate-100'
+                  activo
+                    ? 'bg-primary text-white'
+                    : 'text-text-muted hover:bg-background'
                 }`}
               >
                 {link.label}
@@ -49,7 +60,8 @@ export function Sidebar({
           })}
         </nav>
       </div>
-      <div className="space-y-2 border-t px-4 py-4 text-sm text-slate-600">
+      <div className="space-y-3 border-t border-border px-4 py-4 text-sm text-text-muted">
+        <SelectorTema compacto />
         <p className="truncate">{userEmail}</p>
         {logoutForm}
       </div>
@@ -59,8 +71,8 @@ export function Sidebar({
   return (
     <>
       {/* Barra superior solo visible en mobile: hamburguesa + título */}
-      <div className="flex items-center justify-between border-b bg-white px-4 py-3 md:hidden">
-        <span className="text-sm font-semibold">Horas Extras</span>
+      <div className="flex items-center justify-between border-b border-border bg-surface px-4 py-3 md:hidden">
+        <LogoEmpresaPresentacional logoUrl={logoUrl} nombreEmpresa={nombreEmpresa} tamano={24} />
         <button
           type="button"
           onClick={() => setAbierto(true)}
@@ -74,13 +86,13 @@ export function Sidebar({
       </div>
 
       {/* Sidebar fija en desktop */}
-      <aside className="hidden w-56 shrink-0 border-r bg-white md:block">{contenido}</aside>
+      <aside className="hidden w-56 shrink-0 border-r border-border bg-surface md:block">{contenido}</aside>
 
       {/* Drawer en mobile */}
       {abierto && (
         <div className="fixed inset-0 z-50 md:hidden">
           <div className="absolute inset-0 bg-black/40" onClick={() => setAbierto(false)} />
-          <aside className="absolute inset-y-0 left-0 w-64 bg-white shadow-xl">
+          <aside className="absolute inset-y-0 left-0 w-64 bg-surface shadow-xl">
             <div className="flex justify-end p-2">
               <button type="button" onClick={() => setAbierto(false)} aria-label="Cerrar menú" className="rounded p-2 hover:bg-slate-100">
                 ✕
@@ -93,3 +105,4 @@ export function Sidebar({
     </>
   )
 }
+
