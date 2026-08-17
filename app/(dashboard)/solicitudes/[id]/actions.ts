@@ -30,55 +30,86 @@ async function ejecutar(
 }
 
 export async function agregarEmpleadoAction(solicitudId: string, empleadoId: string) {
-  return ejecutar((rpc) => rpc.agregarEmpleado(solicitudId, empleadoId), solicitudId)
+  return ejecutar(
+    async (rpc) => await rpc.agregarEmpleado(solicitudId, empleadoId),
+    solicitudId
+  )
 }
 
-export async function quitarEmpleadoAction(solicitudId: string, solicitudEmpleadoId: string) {
-  return ejecutar((rpc) => rpc.quitarEmpleado(solicitudEmpleadoId), solicitudId)
+export async function quitarEmpleadoAction(
+  solicitudId: string,
+  solicitudEmpleadoId: string
+) {
+  return ejecutar(
+    async (rpc) => await rpc.quitarEmpleado(solicitudEmpleadoId),
+    solicitudId
+  )
 }
 
-export async function aprobarEmpleadoAction(solicitudId: string, solicitudEmpleadoId: string) {
-  return ejecutar((rpc) => rpc.aprobarEmpleado(solicitudEmpleadoId), solicitudId)
+export async function aprobarEmpleadoAction(
+  solicitudId: string,
+  solicitudEmpleadoId: string
+) {
+  return ejecutar(
+    async (rpc) => await rpc.aprobarEmpleado(solicitudEmpleadoId),
+    solicitudId
+  )
 }
 
 export async function rechazarEmpleadoAction(solicitudId: string, solicitudEmpleadoId: string) {
-  return ejecutar((rpc) => rpc.rechazarEmpleado(solicitudEmpleadoId), solicitudId)
+  return ejecutar(
+    async (rpc) => await rpc.rechazarEmpleado(solicitudEmpleadoId),
+    solicitudId
+  )
 }
 
 export async function aprobarTodoAction(solicitudId: string) {
-  return ejecutar((rpc) => rpc.aprobarSolicitudCompleta(solicitudId), solicitudId)
+  return ejecutar(
+    async (rpc) => await rpc.aprobarSolicitudCompleta(solicitudId),
+    solicitudId
+  )
 }
 
 export async function rechazarTodoAction(solicitudId: string) {
-  return ejecutar((rpc) => rpc.rechazarSolicitudCompleta(solicitudId), solicitudId)
+  return ejecutar(
+    async (rpc) => await rpc.rechazarSolicitudCompleta(solicitudId),
+    solicitudId
+  )
 }
 
 export async function reabrirAction(solicitudId: string) {
-  return ejecutar((rpc) => rpc.reabrirSolicitud(solicitudId), solicitudId)
+  return ejecutar(
+    async (rpc) => await rpc.reabrirSolicitud(solicitudId), solicitudId)
 }
 
 export async function finalizarCargaAction(solicitudId: string) {
-  return ejecutar((rpc) => rpc.finalizarCarga(solicitudId), solicitudId)
+  return ejecutar(
+    async (rpc) => await rpc.finalizarCarga(solicitudId), solicitudId)
 }
 
 export async function volverAPendienteAction(solicitudId: string) {
-  return ejecutar((rpc) => rpc.volverAPendiente(solicitudId), solicitudId)
+  return ejecutar(
+    async (rpc) => await rpc.volverAPendiente(solicitudId), solicitudId)
 }
 
 export async function eliminarAction(solicitudId: string) {
-  return ejecutar((rpc) => rpc.eliminarSolicitud(solicitudId), solicitudId)
+  return ejecutar(
+    async (rpc) => await rpc.eliminarSolicitud(solicitudId), solicitudId)
 }
 
 export async function registrarIngresoAction(solicitudId: string, solicitudEmpleadoId: string, fechaHoraIngreso?: string) {
-  return ejecutar((rpc) => rpc.registrarControlIngreso(solicitudEmpleadoId, fechaHoraIngreso), solicitudId)
+  return ejecutar(
+    async (rpc) => await rpc.registrarControlIngreso(solicitudEmpleadoId, fechaHoraIngreso), solicitudId)
 }
 
 export async function registrarIngresoSolicitudAction(solicitudId: string, fechaHoraIngreso?: string) {
-  return ejecutar((rpc) => rpc.registrarControlIngresoSolicitud(solicitudId, fechaHoraIngreso), solicitudId)
+  return ejecutar(
+    async (rpc) => await rpc.registrarControlIngresoSolicitud(solicitudId, fechaHoraIngreso), solicitudId)
 }
 
 export async function eliminarIngresoAction(solicitudId: string, solicitudEmpleadoId: string) {
-  return ejecutar((rpc) => rpc.eliminarControlIngreso(solicitudEmpleadoId), solicitudId)
+  return ejecutar(
+    async (rpc) => await rpc.eliminarControlIngreso(solicitudEmpleadoId), solicitudId)
 }
 
 export async function agregarEmpleadoPorLegajoAction(solicitudId: string, legajo: string) {
@@ -93,7 +124,10 @@ export async function agregarEmpleadoPorLegajoAction(solicitudId: string, legajo
   if (buscarError) return { error: buscarError.message }
   if (!empleado) return { error: `No se encontró ningún empleado con legajo ${legajo}` }
 
-  return ejecutar((rpc) => rpc.agregarEmpleado(solicitudId, empleado.id), solicitudId)
+  return ejecutar(
+    async (rpc) => await rpc.agregarEmpleado(solicitudId, empleado.id),
+    solicitudId
+  )
 }
 
 export type ResultadoAgregarMasivo = { empleadoId: string; ok: boolean; mensaje: string }

@@ -54,8 +54,18 @@ export function empleadosRpc(supabase: SupabaseClient) {
     fusionarEmpleados: (conservarId: string, fusionarId: string) =>
       supabase.rpc('rpc_fusionar_empleados', { p_conservar_id: conservarId, p_fusionar_id: fusionarId }),
 
-    eliminarOInactivarEmpleado: (empleadoId: string) =>
-      supabase.rpc('rpc_eliminar_o_inactivar_empleado', { p_empleado_id: empleadoId }).maybeSingle(),
+    eliminarOInactivarEmpleado: async (empleadoId: string) => {
+      const { data, error } = await supabase.rpc('rpc_eliminar_o_inactivar_empleado', {
+        p_empleado_id: empleadoId,
+      })
+
+      const resultado = data?.[0] ?? null
+
+      return {
+        data: resultado,
+        error,
+      }
+    },
   }
 }
 

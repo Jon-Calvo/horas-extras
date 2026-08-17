@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import type { CampoAdmin } from '@/components/admin-entity-crud'
+import type { CampoAdmin } from '@/components/admin/admin-entity-crud'
 import { ExportarExcelBoton } from '@/components/excel/exportar-excel-boton'
 import { ImportarExcelGenerico } from '@/components/excel/importar-excel-generico'
 import { EmpleadosLista, type EmpleadoRow } from './empleados-lista'
@@ -53,21 +53,36 @@ export default async function EmpleadosPage() {
       supabase.rpc('fn_es_admin'),
     ])
 
-  const empleados: EmpleadoRow[] = (empleadosRaw ?? []).map((e) => ({
-    id: e.id,
-    legajo: e.legajo,
-    nombreCompleto: e.nombre_completo,
-    categoriaCodigo: e.categoria_codigo,
-    areaNombre: e.area_nombre,
-    sectorNombre: e.sector_nombre,
-    procesoNombre: e.proceso_nombre,
-    estado: e.estado,
-    rankingHoras: Number(e.ranking_horas),
-    ibDescripcion: e.ib_descripcion,
-    areaId: e.area_id ?? '',
-    sectorId: e.sector_id ?? '',
-    procesoId: e.proceso_id ?? '',
-  }))
+  const empleados: EmpleadoRow[] = (empleadosRaw ?? [])
+    .filter(
+      (e): e is typeof e & {
+        id: string
+        legajo: string
+        nombre_completo: string
+        categoria_codigo: string
+        estado: 'ACTIVO' | 'INACTIVO'
+      } =>
+        e.id !== null &&
+        e.legajo !== null &&
+        e.nombre_completo !== null &&
+        e.categoria_codigo !== null &&
+        e.estado !== null
+    )
+    .map((e) => ({
+      id: e.id,
+      legajo: e.legajo,
+      nombreCompleto: e.nombre_completo,
+      categoriaCodigo: e.categoria_codigo,
+      areaNombre: e.area_nombre,
+      sectorNombre: e.sector_nombre,
+      procesoNombre: e.proceso_nombre,
+      estado: e.estado,
+      rankingHoras: Number(e.ranking_horas),
+      ibDescripcion: e.ib_descripcion,
+      areaId: e.area_id ?? '',
+      sectorId: e.sector_id ?? '',
+      procesoId: e.proceso_id ?? '',
+    }))
 
   const opciones = {
     areas: areas ?? [],

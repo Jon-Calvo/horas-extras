@@ -18,20 +18,49 @@ async function requireAdmin() {
   return supabase
 }
 
-const ROLES_VALIDOS = ['ADMIN', 'RESPONSABLE', 'APROBADOR', 'CONTROL_INGRESO', 'CONSULTA']
+const ROLES_VALIDOS = [
+  'ADMIN',
+  'RESPONSABLE',
+  'APROBADOR',
+  'CONTROL_INGRESO',
+  'CONSULTA',
+] as const
+
+type NivelPermiso = 'TODO' | 'AREA' | 'SECTOR' | 'PROCESO' | 'NADA'
+
+function leerNivelPermiso(valor: FormDataEntryValue | null): NivelPermiso {
+  const nivel = String(valor ?? 'NADA')
+
+  if (
+    nivel === 'TODO' ||
+    nivel === 'AREA' ||
+    nivel === 'SECTOR' ||
+    nivel === 'PROCESO' ||
+    nivel === 'NADA'
+  ) {
+    return nivel
+  }
+
+  return 'NADA'
+}
 
 function leerPermisosDeFormData(formData: FormData) {
   return {
-    visibilidad_nivel: String(formData.get('visibilidadNivel') ?? 'NADA'),
-    aprobacion_nivel: String(formData.get('aprobacionNivel') ?? 'NADA'),
-    modificacion_nivel: String(formData.get('modificacionNivel') ?? 'NADA'),
-    reapertura_nivel: String(formData.get('reaperturaNivel') ?? 'NADA'),
+    visibilidad_nivel: leerNivelPermiso(formData.get('visibilidadNivel')),
+    aprobacion_nivel: leerNivelPermiso(formData.get('aprobacionNivel')),
+    modificacion_nivel: leerNivelPermiso(formData.get('modificacionNivel')),
+    reapertura_nivel: leerNivelPermiso(formData.get('reaperturaNivel')),
     control_ingreso: formData.get('controlIngreso') === 'on',
   }
 }
 
 function leerRolesDeFormData(formData: FormData) {
-  return formData.getAll('roles').map(String).filter((r) => ROLES_VALIDOS.includes(r))
+  return formData
+    .getAll('roles')
+    .map(String)
+    .filter((r): r is (typeof ROLES_VALIDOS)[number] =>
+      ROLES_VALIDOS.includes(r as (typeof ROLES_VALIDOS)[number])
+    )
 }
 
 // ----------------------------------------------------------------------------
