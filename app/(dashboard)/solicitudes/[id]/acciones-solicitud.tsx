@@ -66,7 +66,7 @@ export function AccionesSolicitud({
           <button
             disabled={pending}
             onClick={() => run(() => finalizarCargaAction(solicitudId))}
-            className="rounded bg-blue-600 px-3 py-1.5 text-xs text-white disabled:opacity-50"
+            className="rounded bg-primary px-3 py-1.5 text-xs text-white disabled:opacity-50"
           >
             Finalizar carga de solicitud
           </button>
@@ -74,10 +74,10 @@ export function AccionesSolicitud({
 
         {mostrarAprobacion && (
           <>
-            <button disabled={pending} onClick={() => run(() => aprobarTodoAction(solicitudId))} className="rounded bg-green-600 px-3 py-1.5 text-xs text-white disabled:opacity-50">
+            <button disabled={pending} onClick={() => run(() => aprobarTodoAction(solicitudId))} className="rounded bg-success px-3 py-1.5 text-xs text-white disabled:opacity-50">
               Aprobar todos los pendientes
             </button>
-            <button disabled={pending} onClick={() => run(() => rechazarTodoAction(solicitudId))} className="rounded bg-red-600 px-3 py-1.5 text-xs text-white disabled:opacity-50">
+            <button disabled={pending} onClick={() => run(() => rechazarTodoAction(solicitudId))} className="rounded bg-danger px-3 py-1.5 text-xs text-white disabled:opacity-50">
               Rechazar todos los pendientes
             </button>
           </>
@@ -87,7 +87,7 @@ export function AccionesSolicitud({
           <button
             disabled={pending}
             onClick={() => run(() => volverAPendienteAction(solicitudId))}
-            className="rounded border px-3 py-1.5 text-xs disabled:opacity-50"
+            className="rounded border border-border px-3 py-1.5 text-xs disabled:opacity-50"
             title="Vuelve a borrador para poder agregar/quitar empleados. No modifica las decisiones ya tomadas."
           >
             Volver a borrador
@@ -95,17 +95,17 @@ export function AccionesSolicitud({
         )}
 
         {puedeControlIngreso && estadoSolicitud === 'CERRADA' && (
-          <button disabled={pending} onClick={() => setModalIngresoMasivo(true)} className="rounded bg-slate-900 px-3 py-1.5 text-xs text-white disabled:opacity-50">
+          <button disabled={pending} onClick={() => setModalIngresoMasivo(true)} className="rounded bg-primary px-3 py-1.5 text-xs text-white disabled:opacity-50">
             Registrar ingreso de toda la solicitud
           </button>
         )}
         {puedeReabrir && estadoSolicitud === 'CERRADA' && (
-          <button disabled={pending} onClick={() => run(() => reabrirAction(solicitudId))} className="rounded border px-3 py-1.5 text-xs disabled:opacity-50">
+          <button disabled={pending} onClick={() => run(() => reabrirAction(solicitudId))} className="rounded border border-border px-3 py-1.5 text-xs disabled:opacity-50">
             Reabrir
           </button>
         )}
         {puedeModificar && estadoSolicitud !== 'ELIMINADA' && (
-          <button disabled={pending} onClick={() => run(() => eliminarAction(solicitudId))} className="rounded border border-red-300 px-3 py-1.5 text-xs text-red-700 disabled:opacity-50">
+          <button disabled={pending} onClick={() => run(() => eliminarAction(solicitudId))} className="rounded border border-border border-red-300 px-3 py-1.5 text-xs text-red-700 disabled:opacity-50">
             Eliminar solicitud
           </button>
         )}

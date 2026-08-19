@@ -101,25 +101,25 @@ export function ImportarExcelGenerico({
 
   if (!abierto) {
     return (
-      <button type="button" onClick={() => setAbierto(true)} className="rounded border px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50">
+      <button type="button" onClick={() => setAbierto(true)} className="rounded border border-border px-3 py-1.5 text-sm text-text-muted hover:bg-text/5">
         Importar Excel
       </button>
     )
   }
 
   return (
-    <div className="space-y-3 rounded-lg border bg-white p-4">
+    <div className="space-y-3 rounded-lg border border-border bg-surface p-4">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold">Importar desde Excel</h3>
-        <button type="button" onClick={() => setAbierto(false)} className="text-xs text-slate-500 underline">
+        <button type="button" onClick={() => setAbierto(false)} className="text-xs text-text-muted underline">
           Cerrar
         </button>
       </div>
 
-      <p className="text-xs text-slate-500">
+      <p className="text-xs text-text-muted">
         El archivo debe tener una fila de encabezado con estas columnas exactas: {campos.map((c) => c.label).join(', ')}.
       </p>
-      <button type="button" onClick={descargarPlantilla} className="text-xs text-slate-500 underline">
+      <button type="button" onClick={descargarPlantilla} className="text-xs text-text-muted underline">
         Descargar plantilla vacía
       </button>
 
@@ -137,9 +137,9 @@ export function ImportarExcelGenerico({
           <p className="text-sm">
             Se detectaron <strong>{filasPreview.length}</strong> filas. Revisá el preview antes de confirmar:
           </p>
-          <div className="max-h-48 overflow-y-auto rounded border text-xs">
+          <div className="max-h-48 overflow-y-auto rounded border border-border text-xs">
             <table className="w-full">
-              <thead className="bg-slate-50">
+              <thead className="bg-background">
                 <tr>
                   {campos.map((c) => (
                     <th key={c.key} className="px-2 py-1 text-left">
@@ -150,7 +150,7 @@ export function ImportarExcelGenerico({
               </thead>
               <tbody>
                 {filasPreview.slice(0, 10).map((fila, i) => (
-                  <tr key={i} className="border-t">
+                  <tr key={i} className="border-t border-t-border">
                     {campos.map((c) => (
                       <td key={c.key} className="px-2 py-1">
                         {String(fila[c.key])}
@@ -160,13 +160,13 @@ export function ImportarExcelGenerico({
                 ))}
               </tbody>
             </table>
-            {filasPreview.length > 10 && <p className="p-2 text-slate-400">...y {filasPreview.length - 10} filas más</p>}
+            {filasPreview.length > 10 && <p className="p-2 text-text-muted">...y {filasPreview.length - 10} filas más</p>}
           </div>
           <button
             type="button"
             onClick={confirmarImportacion}
             disabled={pending}
-            className="rounded bg-slate-900 px-3 py-1.5 text-sm text-white disabled:opacity-50"
+            className="rounded bg-primary px-3 py-1.5 text-sm text-white disabled:opacity-50"
           >
             {pending ? 'Importando...' : `Confirmar e importar ${filasPreview.length} filas`}
           </button>

@@ -61,12 +61,12 @@ export function AdminEntityCrud<T extends Record<string, any> & { id: string }>(
 
   return (
     <div className="space-y-3">
-      <div className="overflow-x-auto rounded-lg border bg-white">
+      <div className="overflow-x-auto rounded-lg border border-border bg-surface">
         <table className="w-full text-sm">
-          <thead className="border-b bg-slate-50 text-left">
+          <thead className="border-b border-b-border bg-background text-left">
             <tr>
               {campos.map((c) => (
-                <th key={c.key} className="px-3 py-2 font-medium text-slate-600">
+                <th key={c.key} className="px-3 py-2 font-medium text-text-muted">
                   {c.label}
                 </th>
               ))}
@@ -75,14 +75,14 @@ export function AdminEntityCrud<T extends Record<string, any> & { id: string }>(
           </thead>
           <tbody>
             {filas.map((fila) => (
-              <tr key={fila.id} className="border-b last:border-0">
+              <tr key={fila.id} className="border-b border-b-border last:border-0">
                 {campos.map((c) => (
                   <td key={c.key} className="px-3 py-2">
                     {renderCelda ? renderCelda(fila, c) : c.type === 'checkbox' ? (fila[c.key] ? 'Sí' : 'No') : String(fila[c.key] ?? '')}
                   </td>
                 ))}
                 <td className="flex gap-2 px-3 py-2">
-                  <button onClick={() => abrirEditar(fila)} className="text-xs text-slate-500 underline">
+                  <button onClick={() => abrirEditar(fila)} className="text-xs text-text-muted underline">
                     Editar
                   </button>
                   {onEliminar && (
@@ -105,7 +105,7 @@ export function AdminEntityCrud<T extends Record<string, any> & { id: string }>(
             ))}
             {filas.length === 0 && (
               <tr>
-                <td colSpan={campos.length + 1} className="px-3 py-6 text-center text-slate-400">
+                <td colSpan={campos.length + 1} className="px-3 py-6 text-center text-text-muted">
                   Sin registros
                 </td>
               </tr>
@@ -115,13 +115,13 @@ export function AdminEntityCrud<T extends Record<string, any> & { id: string }>(
       </div>
 
       {editando === null && (
-        <button onClick={abrirNuevo} className="rounded bg-slate-900 px-3 py-1.5 text-sm text-white">
+        <button onClick={abrirNuevo} className="rounded bg-primary px-3 py-1.5 text-sm text-white">
           + Nuevo
         </button>
       )}
 
       {editando !== null && (
-        <div className="space-y-3 rounded-lg border bg-white p-4">
+        <div className="space-y-3 rounded-lg border border-border bg-surface p-4">
           <h3 className="text-sm font-semibold">{editando === 'NUEVO' ? 'Nuevo registro' : 'Editar registro'}</h3>
 
           {error && <p className="rounded bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
@@ -129,7 +129,7 @@ export function AdminEntityCrud<T extends Record<string, any> & { id: string }>(
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
             {campos.map((c) => (
               <div key={c.key} className="space-y-1">
-                <label className="text-xs font-medium text-slate-500">{c.label}</label>
+                <label className="text-xs font-medium text-text-muted">{c.label}</label>
                 {c.type === 'checkbox' ? (
                   <input
                     type="checkbox"
@@ -141,7 +141,7 @@ export function AdminEntityCrud<T extends Record<string, any> & { id: string }>(
                   <select
                     value={valores[c.key] ?? ''}
                     onChange={(e) => setValores((v) => ({ ...v, [c.key]: e.target.value }))}
-                    className="w-full rounded border px-2 py-1.5 text-sm"
+                    className="w-full rounded border border-border px-2 py-1.5 text-sm"
                   >
                     <option value="">Seleccionar...</option>
                     {c.opciones.map((o) => (
@@ -157,7 +157,7 @@ export function AdminEntityCrud<T extends Record<string, any> & { id: string }>(
                     min={c.type === 'number' ? c.min : undefined}
                     value={valores[c.key] ?? ''}
                     onChange={(e) => setValores((v) => ({ ...v, [c.key]: e.target.value }))}
-                    className="w-full rounded border px-2 py-1.5 text-sm"
+                    className="w-full rounded border border-border px-2 py-1.5 text-sm"
                   />
                 )}
               </div>
@@ -165,10 +165,10 @@ export function AdminEntityCrud<T extends Record<string, any> & { id: string }>(
           </div>
 
           <div className="flex gap-2">
-            <button onClick={guardar} disabled={pending} className="rounded bg-slate-900 px-3 py-1.5 text-sm text-white disabled:opacity-50">
+            <button onClick={guardar} disabled={pending} className="rounded bg-primary px-3 py-1.5 text-sm text-white disabled:opacity-50">
               {pending ? 'Guardando...' : 'Guardar'}
             </button>
-            <button onClick={() => setEditando(null)} disabled={pending} className="rounded border px-3 py-1.5 text-sm disabled:opacity-50">
+            <button onClick={() => setEditando(null)} disabled={pending} className="rounded border border-border px-3 py-1.5 text-sm disabled:opacity-50">
               Cancelar
             </button>
           </div>

@@ -22,14 +22,14 @@ export default async function UsuariosPage() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-lg font-semibold">Usuarios</h1>
-        <Link href="/admin/usuarios/nuevo" className="rounded bg-slate-900 px-3 py-1.5 text-sm text-white">
+        <Link href="/admin/usuarios/nuevo" className="rounded bg-primary px-3 py-1.5 text-sm text-white">
           + Nuevo usuario
         </Link>
       </div>
 
-      <div className="overflow-x-auto rounded-lg border bg-white">
+      <div className="overflow-x-auto rounded-lg border border-border bg-surface">
         <table className="w-full text-sm">
-          <thead className="border-b bg-slate-50 text-left">
+          <thead className="border-b border-b-border bg-background text-left">
             <tr>
               <th className="px-3 py-2">Nombre</th>
               <th className="px-3 py-2">Email</th>
@@ -40,7 +40,7 @@ export default async function UsuariosPage() {
           </thead>
           <tbody>
             {(usuarios ?? []).map((u) => (
-              <tr key={u.id} className="border-b last:border-0">
+              <tr key={u.id} className="border-b border-b-border last:border-0">
                 <td className="px-3 py-2">{u.nombre_completo}</td>
                 <td className="px-3 py-2">{u.email}</td>
                 <td className="px-3 py-2">{(rolesPorUsuario.get(u.id) ?? []).join(', ') || '—'}</td>
@@ -50,7 +50,7 @@ export default async function UsuariosPage() {
                   </span>
                 </td>
                 <td className="px-3 py-2">
-                  <Link href={`/admin/usuarios/${u.id}`} className="text-xs text-slate-500 underline">
+                  <Link href={`/admin/usuarios/${u.id}`} className="text-xs text-text-muted underline">
                     Editar
                   </Link>
                 </td>
@@ -58,7 +58,7 @@ export default async function UsuariosPage() {
             ))}
             {(usuarios ?? []).length === 0 && (
               <tr>
-                <td colSpan={5} className="px-3 py-6 text-center text-slate-400">
+                <td colSpan={5} className="px-3 py-6 text-center text-text-muted">
                   Sin usuarios
                 </td>
               </tr>

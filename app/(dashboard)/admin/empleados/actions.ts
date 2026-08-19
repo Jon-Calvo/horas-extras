@@ -3,6 +3,8 @@
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import { empleadosRpc } from '@/lib/supabase/rpc'
+import { parseEstadoEmpleado } from '@/lib/enums'
+import { leerCampoStringOpcional } from '@/lib/assert'
 
 // Firma (prevState, formData) a propósito — mismo criterio que
 // crearUsuario/actualizarUsuario (Fase 5.2): se pasa DIRECTO como prop al
@@ -15,10 +17,10 @@ export async function guardarEmpleado(_prevState: { error: string }, formData: F
   const legajo = String(formData.get('legajo') ?? '').trim()
   const nombreCompleto = String(formData.get('nombreCompleto') ?? '').trim()
   const categoriaCodigo = String(formData.get('categoriaCodigo') ?? '')
-  const areaId = (formData.get('areaId') as string) || null
-  const sectorId = (formData.get('sectorId') as string) || null
-  const procesoId = (formData.get('procesoId') as string) || null
-  const estado = (String(formData.get('estado') ?? 'ACTIVO') as 'ACTIVO' | 'INACTIVO')
+  const areaId = leerCampoStringOpcional(formData, 'areaId')
+  const sectorId = leerCampoStringOpcional(formData, 'sectorId')
+  const procesoId = leerCampoStringOpcional(formData, 'procesoId')
+  const estado = parseEstadoEmpleado(String(formData.get('estado') ?? 'ACTIVO')) ?? 'ACTIVO'
 
   if (!legajo || !nombreCompleto || !categoriaCodigo) {
     return { error: 'Legajo, nombre y categoría son obligatorios' }

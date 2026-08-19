@@ -12,7 +12,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   const logoutForm = (
     <form action={logout}>
-      <button type="submit" className="text-slate-500 underline">
+      <button type="submit" className="text-text-muted underline">
         Salir
       </button>
     </form>

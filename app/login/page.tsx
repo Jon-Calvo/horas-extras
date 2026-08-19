@@ -9,10 +9,10 @@ export default async function LoginPage({
   const { error } = await searchParams
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50">
+    <div className="flex min-h-screen items-center justify-center bg-background">
       <form
         action={login}
-        className="w-full max-w-sm space-y-4 rounded-lg border bg-white p-6 shadow-sm"
+        className="w-full max-w-sm space-y-4 rounded-lg border border-border bg-surface p-6 shadow-sm"
       >
         {/* Antes: <h1>Gestión de Horas Extras</h1> fijo. Ahora usa el logo
             y nombre configurados en /admin/apariencia — LogoEmpresa
@@ -33,7 +33,7 @@ export default async function LoginPage({
             name="email"
             type="email"
             required
-            className="w-full rounded border px-3 py-2 text-sm"
+            className="w-full rounded border border-border px-3 py-2 text-sm"
           />
         </div>
 
@@ -46,19 +46,13 @@ export default async function LoginPage({
             name="password"
             type="password"
             required
-            className="w-full rounded border px-3 py-2 text-sm"
+            className="w-full rounded border border-border px-3 py-2 text-sm"
           />
         </div>
 
-        {/* style inline con la variable CSS en vez de bg-primary: funciona
-            ya mismo sin depender de que Tailwind ya esté configurado para
-            reconocer esa utility (ver INTEGRACION.md) — una vez que
-            registres bg-primary en globals.css/tailwind.config, se puede
-            simplificar a className="bg-primary hover:bg-primary-hover". */}
         <button
           type="submit"
-          style={{ backgroundColor: 'var(--color-primary)' }}
-          className="w-full rounded px-3 py-2 text-sm font-medium text-white"
+          className="w-full rounded bg-primary px-3 py-2 text-sm font-medium text-white hover:bg-primary-hover"
         >
           Ingresar
         </button>

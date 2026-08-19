@@ -77,7 +77,7 @@ export function Sidebar({
           type="button"
           onClick={() => setAbierto(true)}
           aria-label="Abrir menú"
-          className="rounded p-2 hover:bg-slate-100"
+          className="rounded p-2 hover:bg-text/5"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M3 6h18M3 12h18M3 18h18" strokeLinecap="round" />
@@ -94,7 +94,7 @@ export function Sidebar({
           <div className="absolute inset-0 bg-black/40" onClick={() => setAbierto(false)} />
           <aside className="absolute inset-y-0 left-0 w-64 bg-surface shadow-xl">
             <div className="flex justify-end p-2">
-              <button type="button" onClick={() => setAbierto(false)} aria-label="Cerrar menú" className="rounded p-2 hover:bg-slate-100">
+              <button type="button" onClick={() => setAbierto(false)} aria-label="Cerrar menú" className="rounded p-2 hover:bg-text/5">
                 ✕
               </button>
             </div>

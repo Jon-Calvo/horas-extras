@@ -118,7 +118,7 @@ export function AparienciaForm({ inicial, logoUrlInicial }: { inicial: ValoresAp
           </p>
         )}
 
-        <section className="space-y-3 rounded-lg border bg-white p-4">
+        <section className="space-y-3 rounded-lg border border-border bg-surface p-4">
           <h2 className="text-sm font-semibold">Tema</h2>
           <div className="flex gap-2">
             {OPCIONES_TEMA.map((o) => (
@@ -127,30 +127,30 @@ export function AparienciaForm({ inicial, logoUrlInicial }: { inicial: ValoresAp
                 type="button"
                 onClick={() => cambiarCampo('temaPredeterminado', o.valor)}
                 className={`rounded px-3 py-1.5 text-sm ${
-                  valores.temaPredeterminado === o.valor ? 'bg-slate-900 text-white' : 'border text-slate-600 hover:bg-slate-50'
+                  valores.temaPredeterminado === o.valor ? 'bg-primary text-white' : 'border border-border text-text-muted hover:bg-text/5'
                 }`}
               >
                 {o.label}
               </button>
             ))}
           </div>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-text-muted">
             Es el tema por defecto para usuarios nuevos — cada usuario puede después elegir el suyo propio desde la sidebar, sin
             necesitar permisos de admin.
           </p>
         </section>
 
-        <section className="space-y-3 rounded-lg border bg-white p-4">
+        <section className="space-y-3 rounded-lg border border-border bg-surface p-4">
           <h2 className="text-sm font-semibold">Identidad</h2>
 
           <div className="space-y-1">
-            <label className="text-xs font-medium text-slate-500">Logo de la empresa</label>
+            <label className="text-xs font-medium text-text-muted">Logo de la empresa</label>
             <div className="flex items-center gap-3">
               {logoUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={logoUrl} alt="Logo actual" className="h-12 w-12 rounded border object-contain" />
+                <img src={logoUrl} alt="Logo actual" className="h-12 w-12 rounded border border-border object-contain" />
               ) : (
-                <div className="flex h-12 w-12 items-center justify-center rounded border text-xs text-slate-400">Sin logo</div>
+                <div className="flex h-12 w-12 items-center justify-center rounded border border-border text-xs text-text-muted">Sin logo</div>
               )}
               <div className="space-y-1">
                 <input
@@ -164,7 +164,7 @@ export function AparienciaForm({ inicial, logoUrlInicial }: { inicial: ValoresAp
                     type="button"
                     onClick={subirArchivo}
                     disabled={!archivoSeleccionado || pendingLogo}
-                    className="rounded bg-slate-900 px-2 py-1 text-xs text-white disabled:opacity-50"
+                    className="rounded bg-primary px-2 py-1 text-xs text-white disabled:opacity-50"
                   >
                     {pendingLogo ? 'Subiendo...' : 'Seleccionar imagen'}
                   </button>
@@ -173,30 +173,30 @@ export function AparienciaForm({ inicial, logoUrlInicial }: { inicial: ValoresAp
                       type="button"
                       onClick={quitarLogo}
                       disabled={pendingLogo}
-                      className="rounded border px-2 py-1 text-xs text-red-600 disabled:opacity-50"
+                      className="rounded border border-border px-2 py-1 text-xs text-red-600 disabled:opacity-50"
                     >
                       Eliminar logo
                     </button>
                   )}
                 </div>
-                {archivoSeleccionado && <p className="text-xs text-slate-400">{archivoSeleccionado.name}</p>}
+                {archivoSeleccionado && <p className="text-xs text-text-muted">{archivoSeleccionado.name}</p>}
               </div>
             </div>
-            <p className="text-xs text-slate-400">PNG, JPG, WEBP o SVG — máximo 5 MB.</p>
+            <p className="text-xs text-text-muted">PNG, JPG, WEBP o SVG — máximo 5 MB.</p>
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-medium text-slate-500">Nombre de la empresa</label>
+            <label className="text-xs font-medium text-text-muted">Nombre de la empresa</label>
             <input
               type="text"
               value={valores.nombreEmpresa}
               onChange={(e) => cambiarCampo('nombreEmpresa', e.target.value)}
-              className="w-full rounded border px-3 py-2 text-sm"
+              className="w-full rounded border border-border px-3 py-2 text-sm"
             />
           </div>
         </section>
 
-        <section className="space-y-3 rounded-lg border bg-white p-4">
+        <section className="space-y-3 rounded-lg border border-border bg-surface p-4">
           <h2 className="text-sm font-semibold">Colores</h2>
           <div className="grid grid-cols-2 gap-3">
             <ColorPickerHex label="Primario" value={valores.colorPrimario} onChange={(v) => cambiarCampo('colorPrimario', v)} />
@@ -207,23 +207,23 @@ export function AparienciaForm({ inicial, logoUrlInicial }: { inicial: ValoresAp
             <ColorPickerHex label="Advertencia" value={valores.colorAdvertencia} onChange={(v) => cambiarCampo('colorAdvertencia', v)} />
             <ColorPickerHex label="Error" value={valores.colorError} onChange={(v) => cambiarCampo('colorError', v)} />
           </div>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-text-muted">
             Fondo, superficie, texto y bordes no se configuran acá a propósito — el sistema define pares claro/oscuro ya
             balanceados para garantizar contraste legible (ver README-CONFIG-VISUAL-FASE-A.md, punto 2).
           </p>
         </section>
 
         <div className="flex flex-wrap gap-2">
-          <button onClick={guardar} disabled={pending} className="rounded bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50">
+          <button onClick={guardar} disabled={pending} className="rounded bg-primary px-4 py-2 text-sm font-medium text-white disabled:opacity-50">
             {pending ? 'Guardando...' : 'Guardar cambios'}
           </button>
-          <button onClick={cancelar} disabled={pending} className="rounded border px-4 py-2 text-sm disabled:opacity-50">
+          <button onClick={cancelar} disabled={pending} className="rounded border border-border px-4 py-2 text-sm disabled:opacity-50">
             Cancelar
           </button>
           <button
             onClick={restaurar}
             disabled={pending}
-            className="rounded border border-red-300 px-4 py-2 text-sm text-red-700 disabled:opacity-50 lg:ml-auto"
+            className="rounded border border-border border-red-300 px-4 py-2 text-sm text-red-700 disabled:opacity-50 lg:ml-auto"
           >
             Restaurar valores predeterminados
           </button>

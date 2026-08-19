@@ -11,3 +11,12 @@ export function requireNonNull<T>(valor: T | null | undefined, campo: string): T
   }
   return valor
 }
+
+// FormData.get() devuelve `FormDataEntryValue | null` (string | File | null).
+// Los <select>/<input> de texto siempre mandan string, pero castear
+// directo `as string` no lo garantiza (y silenciaría el caso File). Este
+// helper valida el tipo en runtime en vez de asumirlo.
+export function leerCampoStringOpcional(formData: FormData, campo: string): string | null {
+  const valor = formData.get(campo)
+  return typeof valor === 'string' && valor !== '' ? valor : null
+}

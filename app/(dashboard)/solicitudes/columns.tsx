@@ -64,7 +64,7 @@ export const solicitudColumns: ColumnDef<SolicitudRow>[] = [
     accessorKey: 'numero',
     header: 'Número',
     cell: ({ row }) => (
-      <Link href={`/solicitudes/${row.original.id}`} className="font-medium text-slate-900 underline">
+      <Link href={`/solicitudes/${row.original.id}`} className="font-medium text-text underline">
         {row.original.numero}
       </Link>
     ),

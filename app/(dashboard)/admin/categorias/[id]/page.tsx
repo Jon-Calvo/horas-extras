@@ -19,7 +19,7 @@ export default async function CategoriaDetallePage({ params }: { params: Promise
 
   return (
     <div className="space-y-4">
-      <Link href="/admin/categorias" className="text-xs text-slate-500 underline">
+      <Link href="/admin/categorias" className="text-xs text-text-muted underline">
         ← Volver a categorías
       </Link>
       <h1 className="text-lg font-semibold">
@@ -28,9 +28,9 @@ export default async function CategoriaDetallePage({ params }: { params: Promise
 
       <NuevoValorForm categoriaTipoId={id} monedaActual={vigente?.moneda ?? 'ARS'} />
 
-      <div className="overflow-x-auto rounded-lg border bg-white">
+      <div className="overflow-x-auto rounded-lg border border-border bg-surface">
         <table className="w-full text-sm">
-          <thead className="border-b bg-slate-50 text-left">
+          <thead className="border-b border-b-border bg-background text-left">
             <tr>
               <th className="px-3 py-2">Valor hora</th>
               <th className="px-3 py-2">Moneda</th>
@@ -40,7 +40,7 @@ export default async function CategoriaDetallePage({ params }: { params: Promise
           </thead>
           <tbody>
             {(historial ?? []).map((v) => (
-              <tr key={v.id} className="border-b last:border-0">
+              <tr key={v.id} className="border-b border-b-border last:border-0">
                 <td className="px-3 py-2">{Number(v.valor_hora).toFixed(2)}</td>
                 <td className="px-3 py-2">{v.moneda}</td>
                 <td className="px-3 py-2">{formatFechaSolo(v.vigencia_desde)}</td>
@@ -49,7 +49,7 @@ export default async function CategoriaDetallePage({ params }: { params: Promise
             ))}
             {(historial ?? []).length === 0 && (
               <tr>
-                <td colSpan={4} className="px-3 py-6 text-center text-slate-400">
+                <td colSpan={4} className="px-3 py-6 text-center text-text-muted">
                   Todavía no se cargó ningún valor
                 </td>
               </tr>

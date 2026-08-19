@@ -8,7 +8,7 @@ export default async function AparienciaPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-lg font-semibold">Configuración de apariencia</h1>
-        <p className="text-sm text-slate-500">Personalizá la identidad visual del sistema — los cambios se aplican a todos los usuarios.</p>
+        <p className="text-sm text-text-muted">Personalizá la identidad visual del sistema — los cambios se aplican a todos los usuarios.</p>
       </div>
       <AparienciaForm
         inicial={{

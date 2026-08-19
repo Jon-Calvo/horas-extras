@@ -32,7 +32,7 @@ export default async function MotivosPage() {
           <ImportarExcelGenerico campos={CAMPOS} onGuardarFila={importarMotivo} />
         </div>
       </div>
-      <p className="text-sm text-slate-500">
+      <p className="text-sm text-text-muted">
         Los motivos con <strong>&quot;Requiere aprobación&quot; desactivado</strong> autoaprueban y cierran la
         solicitud apenas se agrega el primer empleado.
       </p>

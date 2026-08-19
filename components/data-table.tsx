@@ -28,13 +28,13 @@ export function DataTable<TData>({
   })
 
   return (
-    <div className="overflow-x-auto rounded-lg border bg-white">
+    <div className="overflow-x-auto rounded-lg border border-border bg-surface">
       <table className="w-full text-sm">
-        <thead className="border-b bg-slate-50 text-left">
+        <thead className="border-b border-b-border bg-background text-left">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id} className="px-3 py-2 font-medium text-slate-600">
+                <th key={header.id} className="px-3 py-2 font-medium text-text-muted">
                   {flexRender(header.column.columnDef.header, header.getContext())}
                 </th>
               ))}
@@ -43,7 +43,7 @@ export function DataTable<TData>({
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id} className="border-b last:border-0 hover:bg-slate-50">
+            <tr key={row.id} className="border-b border-b-border last:border-0 hover:bg-text/5">
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id} className="px-3 py-2">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -53,7 +53,7 @@ export function DataTable<TData>({
           ))}
           {table.getRowModel().rows.length === 0 && (
             <tr>
-              <td colSpan={columns.length} className="px-3 py-6 text-center text-slate-400">
+              <td colSpan={columns.length} className="px-3 py-6 text-center text-text-muted">
                 Sin resultados
               </td>
             </tr>

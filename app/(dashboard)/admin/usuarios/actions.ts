@@ -4,6 +4,8 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createServiceRoleClient } from '@/lib/supabase/service-role'
+import type { NivelPermiso } from '@/lib/enums'
+import { leerCampoStringOpcional } from '@/lib/assert'
 
 // Todas las acciones de este archivo tocan auth.users (vía service_role) o
 // datos sensibles (permisos). Verificamos fn_es_admin() con el cliente
@@ -25,8 +27,6 @@ const ROLES_VALIDOS = [
   'CONTROL_INGRESO',
   'CONSULTA',
 ] as const
-
-type NivelPermiso = 'TODO' | 'AREA' | 'SECTOR' | 'PROCESO' | 'NADA'
 
 function leerNivelPermiso(valor: FormDataEntryValue | null): NivelPermiso {
   const nivel = String(valor ?? 'NADA')
@@ -83,9 +83,9 @@ export async function crearUsuario(_prevState: { error: string }, formData: Form
   const nombreCompleto = String(formData.get('nombreCompleto') ?? '').trim()
   const email = String(formData.get('email') ?? '').trim()
   const passwordInicial = String(formData.get('passwordInicial') ?? '')
-  const areaId = (formData.get('areaId') as string) || null
-  const sectorId = (formData.get('sectorId') as string) || null
-  const procesoId = (formData.get('procesoId') as string) || null
+  const areaId = leerCampoStringOpcional(formData, 'areaId')
+  const sectorId = leerCampoStringOpcional(formData, 'sectorId')
+  const procesoId = leerCampoStringOpcional(formData, 'procesoId')
   const roles = leerRolesDeFormData(formData)
   const permisos = leerPermisosDeFormData(formData)
 
@@ -149,9 +149,9 @@ export async function actualizarUsuario(
   const supabase = await requireAdmin()
 
   const nombreCompleto = String(formData.get('nombreCompleto') ?? '').trim()
-  const areaId = (formData.get('areaId') as string) || null
-  const sectorId = (formData.get('sectorId') as string) || null
-  const procesoId = (formData.get('procesoId') as string) || null
+  const areaId = leerCampoStringOpcional(formData, 'areaId')
+  const sectorId = leerCampoStringOpcional(formData, 'sectorId')
+  const procesoId = leerCampoStringOpcional(formData, 'procesoId')
   const roles = leerRolesDeFormData(formData)
   const permisos = leerPermisosDeFormData(formData)
 

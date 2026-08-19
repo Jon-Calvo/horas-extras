@@ -126,13 +126,13 @@ export function AgregarEmpleadosPanel({ solicitudId, opciones }: { solicitudId: 
   }
 
   return (
-    <div className="space-y-3 rounded-lg border bg-white p-4">
+    <div className="space-y-3 rounded-lg border border-border bg-surface p-4">
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-semibold">Agregar empleados</h2>
         <button
           type="button"
           onClick={() => setMostrarMasivo((v) => !v)}
-          className="text-xs text-slate-500 underline"
+          className="text-xs text-text-muted underline"
         >
           {mostrarMasivo ? 'Ocultar carga masiva' : 'Carga masiva por filtros'}
         </button>
@@ -145,21 +145,21 @@ export function AgregarEmpleadosPanel({ solicitudId, opciones }: { solicitudId: 
           value={texto}
           onChange={(e) => setTexto(e.target.value)}
           placeholder="Buscar por legajo o nombre..."
-          className="w-full rounded border px-3 py-2 text-sm"
+          className="w-full rounded border border-border px-3 py-2 text-sm"
         />
         {errorAuto && <p className="mt-1 text-xs text-red-600">{errorAuto}</p>}
         {resultadosAuto.length > 0 && (
-          <ul className="absolute z-10 mt-1 max-h-56 w-full overflow-y-auto rounded border bg-white shadow-lg">
+          <ul className="absolute z-10 mt-1 max-h-56 w-full overflow-y-auto rounded border border-border bg-surface shadow-lg">
             {resultadosAuto.map((e) => (
               <li key={e.id}>
                 <button
                   type="button"
                   disabled={pendingAuto}
                   onClick={() => agregarUno(e.id)}
-                  className="flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-slate-50 disabled:opacity-50"
+                  className="flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-text/5 disabled:opacity-50"
                 >
                   <span>{e.nombre_completo}</span>
-                  <span className="text-xs text-slate-400">Legajo {e.legajo}</span>
+                  <span className="text-xs text-text-muted">Legajo {e.legajo}</span>
                 </button>
               </li>
             ))}
@@ -169,7 +169,7 @@ export function AgregarEmpleadosPanel({ solicitudId, opciones }: { solicitudId: 
 
       {/* Carga masiva */}
       {mostrarMasivo && (
-        <div className="space-y-3 border-t pt-3">
+        <div className="space-y-3 border-t border-t-border pt-3">
           <div className="grid grid-cols-2 gap-2 md:grid-cols-5">
             <select
               value={filtroArea}
@@ -178,7 +178,7 @@ export function AgregarEmpleadosPanel({ solicitudId, opciones }: { solicitudId: 
                 setFiltroSector('')
                 setFiltroProceso('')
               }}
-              className="rounded border px-2 py-1.5 text-sm"
+              className="rounded border border-border px-2 py-1.5 text-sm"
             >
               <option value="">Todas las áreas</option>
               {opciones.areas.map((a) => (
@@ -193,7 +193,7 @@ export function AgregarEmpleadosPanel({ solicitudId, opciones }: { solicitudId: 
                 setFiltroSector(e.target.value)
                 setFiltroProceso('')
               }}
-              className="rounded border px-2 py-1.5 text-sm"
+              className="rounded border border-border px-2 py-1.5 text-sm"
             >
               <option value="">Todos los sectores</option>
               {sectoresFiltrados.map((s) => (
@@ -202,7 +202,7 @@ export function AgregarEmpleadosPanel({ solicitudId, opciones }: { solicitudId: 
                 </option>
               ))}
             </select>
-            <select value={filtroProceso} onChange={(e) => setFiltroProceso(e.target.value)} className="rounded border px-2 py-1.5 text-sm">
+            <select value={filtroProceso} onChange={(e) => setFiltroProceso(e.target.value)} className="rounded border border-border px-2 py-1.5 text-sm">
               <option value="">Todos los procesos</option>
               {procesosFiltrados.map((p) => (
                 <option key={p.id} value={p.id}>
@@ -215,9 +215,9 @@ export function AgregarEmpleadosPanel({ solicitudId, opciones }: { solicitudId: 
               value={filtroNombre}
               onChange={(e) => setFiltroNombre(e.target.value)}
               placeholder="Filtrar por nombre..."
-              className="rounded border px-2 py-1.5 text-sm"
+              className="rounded border border-border px-2 py-1.5 text-sm"
             />
-            <select value={filtroIb} onChange={(e) => setFiltroIb(e.target.value)} className="rounded border px-2 py-1.5 text-sm">
+            <select value={filtroIb} onChange={(e) => setFiltroIb(e.target.value)} className="rounded border border-border px-2 py-1.5 text-sm">
               <option value="">Todos los IB</option>
               {opciones.ibs.map((ib) => (
                 <option key={ib.id} value={ib.id}>
@@ -227,9 +227,9 @@ export function AgregarEmpleadosPanel({ solicitudId, opciones }: { solicitudId: 
             </select>
           </div>
 
-          <div className="max-h-72 overflow-y-auto rounded border">
+          <div className="max-h-72 overflow-y-auto rounded border border-border">
             <table className="w-full text-sm">
-              <thead className="sticky top-0 bg-slate-50">
+              <thead className="sticky top-0 bg-background">
                 <tr>
                   <th className="w-8 px-2 py-1.5" />
                   <th className="px-2 py-1.5 text-left">Legajo</th>
@@ -238,7 +238,7 @@ export function AgregarEmpleadosPanel({ solicitudId, opciones }: { solicitudId: 
               </thead>
               <tbody>
                 {resultadosMasivo.map((e) => (
-                  <tr key={e.id} className="border-t hover:bg-slate-50">
+                  <tr key={e.id} className="border-t border-t-border hover:bg-text/5">
                     <td className="px-2 py-1.5">
                       <input
                         type="checkbox"
@@ -252,7 +252,7 @@ export function AgregarEmpleadosPanel({ solicitudId, opciones }: { solicitudId: 
                 ))}
                 {resultadosMasivo.length === 0 && (
                   <tr>
-                    <td colSpan={3} className="px-2 py-4 text-center text-slate-400">
+                    <td colSpan={3} className="px-2 py-4 text-center text-text-muted">
                       Sin resultados para estos filtros
                     </td>
                   </tr>
@@ -266,7 +266,7 @@ export function AgregarEmpleadosPanel({ solicitudId, opciones }: { solicitudId: 
               type="button"
               disabled={pendingMasivo || seleccionados.size === 0}
               onClick={agregarSeleccionados}
-              className="rounded bg-slate-900 px-3 py-1.5 text-sm text-white disabled:opacity-50"
+              className="rounded bg-primary px-3 py-1.5 text-sm text-white disabled:opacity-50"
             >
               {pendingMasivo ? 'Agregando...' : `Agregar ${seleccionados.size} seleccionados`}
             </button>

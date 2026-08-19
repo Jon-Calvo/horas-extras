@@ -170,17 +170,9 @@ export async function exportarSolicitudesDetalladoAction(
     }
   }
 
-  const ids = (
-    solicitudes ?? []
-  )
+  const ids = (solicitudes ?? [])
     .map((s) => s.id)
-    .filter(
-      (
-        id,
-      ): id is string =>
-        id !== null,
-      ),
-    )
+    .filter((id): id is string => id !== null)
 
   if (ids.length === 0) {
     return {
@@ -225,12 +217,12 @@ export async function exportarSolicitudesDetalladoAction(
     new Map(
       (solicitudes ?? [])
         .filter(
-          (s) =>
+          (s): s is typeof s & { id: string } =>
             s.id !== null,
         )
         .map(
           (s) => [
-            s.id as string,
+            s.id,
             s.numero ?? '',
           ],
         ),

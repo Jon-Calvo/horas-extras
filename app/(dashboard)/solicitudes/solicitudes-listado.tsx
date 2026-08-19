@@ -29,19 +29,19 @@ export function SolicitudesListado({ rows }: { rows: SolicitudRow[] }) {
   return (
     <div className="space-y-3">
       {idsSeleccionados.length > 0 && (
-        <div className="flex items-center gap-3 rounded-lg border bg-white p-3">
-          <span className="text-sm text-slate-600">{idsSeleccionados.length} seleccionada(s)</span>
+        <div className="flex items-center gap-3 rounded-lg border border-border bg-surface p-3">
+          <span className="text-sm text-text-muted">{idsSeleccionados.length} seleccionada(s)</span>
           <button
             disabled={pending}
             onClick={() => ejecutarMasivo('APROBAR')}
-            className="rounded bg-green-600 px-3 py-1.5 text-xs text-white disabled:opacity-50"
+            className="rounded bg-success px-3 py-1.5 text-xs text-white disabled:opacity-50"
           >
             Aprobar seleccionadas
           </button>
           <button
             disabled={pending}
             onClick={() => ejecutarMasivo('RECHAZAR')}
-            className="rounded bg-red-600 px-3 py-1.5 text-xs text-white disabled:opacity-50"
+            className="rounded bg-danger px-3 py-1.5 text-xs text-white disabled:opacity-50"
           >
             Rechazar seleccionadas
           </button>

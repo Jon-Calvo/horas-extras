@@ -31,9 +31,9 @@ export function NuevoValorForm({ categoriaTipoId, monedaActual }: { categoriaTip
   }
 
   return (
-    <div className="space-y-3 rounded-lg border bg-white p-4">
+    <div className="space-y-3 rounded-lg border border-border bg-surface p-4">
       <h3 className="text-sm font-semibold">Nuevo valor vigente</h3>
-      <p className="text-xs text-slate-500">
+      <p className="text-xs text-text-muted">
         Cierra automáticamente la vigencia actual el día anterior a la fecha elegida — no hace falta hacerlo a mano.
       </p>
 
@@ -41,20 +41,20 @@ export function NuevoValorForm({ categoriaTipoId, monedaActual }: { categoriaTip
 
       <div className="grid grid-cols-3 gap-3">
         <div className="space-y-1">
-          <label className="text-xs font-medium text-slate-500">Valor hora</label>
-          <input type="number" step="0.01" min="0" value={valorHora} onChange={(e) => setValorHora(e.target.value)} className="w-full rounded border px-2 py-1.5 text-sm" />
+          <label className="text-xs font-medium text-text-muted">Valor hora</label>
+          <input type="number" step="0.01" min="0" value={valorHora} onChange={(e) => setValorHora(e.target.value)} className="w-full rounded border border-border px-2 py-1.5 text-sm" />
         </div>
         <div className="space-y-1">
-          <label className="text-xs font-medium text-slate-500">Moneda</label>
-          <input type="text" value={moneda} onChange={(e) => setMoneda(e.target.value)} className="w-full rounded border px-2 py-1.5 text-sm" />
+          <label className="text-xs font-medium text-text-muted">Moneda</label>
+          <input type="text" value={moneda} onChange={(e) => setMoneda(e.target.value)} className="w-full rounded border border-border px-2 py-1.5 text-sm" />
         </div>
         <div className="space-y-1">
-          <label className="text-xs font-medium text-slate-500">Vigente desde</label>
-          <input type="date" value={vigenciaDesde} onChange={(e) => setVigenciaDesde(e.target.value)} className="w-full rounded border px-2 py-1.5 text-sm" />
+          <label className="text-xs font-medium text-text-muted">Vigente desde</label>
+          <input type="date" value={vigenciaDesde} onChange={(e) => setVigenciaDesde(e.target.value)} className="w-full rounded border border-border px-2 py-1.5 text-sm" />
         </div>
       </div>
 
-      <button onClick={guardar} disabled={pending || !valorHora} className="rounded bg-slate-900 px-3 py-1.5 text-sm text-white disabled:opacity-50">
+      <button onClick={guardar} disabled={pending || !valorHora} className="rounded bg-primary px-3 py-1.5 text-sm text-white disabled:opacity-50">
         {pending ? 'Guardando...' : 'Actualizar valor'}
       </button>
     </div>

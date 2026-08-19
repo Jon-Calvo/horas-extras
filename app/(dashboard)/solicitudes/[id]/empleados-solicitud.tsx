@@ -63,9 +63,9 @@ export function EmpleadosSolicitud({
     <div className="space-y-3">
       {error && <p className="rounded bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
 
-      <div className="overflow-x-auto rounded-lg border bg-white">
+      <div className="overflow-x-auto rounded-lg border border-border bg-surface">
         <table className="w-full text-sm">
-          <thead className="border-b bg-slate-50 text-left">
+          <thead className="border-b border-b-border bg-background text-left">
             <tr>
               <th className="px-3 py-2">Legajo</th>
               <th className="px-3 py-2">Nombre</th>
@@ -80,7 +80,7 @@ export function EmpleadosSolicitud({
           </thead>
           <tbody>
             {empleados.map((e) => (
-              <tr key={e.solicitudEmpleadoId} className="border-b last:border-0">
+              <tr key={e.solicitudEmpleadoId} className="border-b border-b-border last:border-0">
                 <td className="px-3 py-2">{e.legajo}</td>
                 <td className="px-3 py-2">{e.nombreCompleto}</td>
                 <td className="px-3 py-2">{e.ibDescripcion ?? '—'}</td>
@@ -97,14 +97,14 @@ export function EmpleadosSolicitud({
                       <button
                         disabled={pending}
                         onClick={() => run(() => aprobarEmpleadoAction(solicitudId, e.solicitudEmpleadoId))}
-                        className="rounded bg-green-600 px-2 py-1 text-xs text-white disabled:opacity-50"
+                        className="rounded bg-success px-2 py-1 text-xs text-white disabled:opacity-50"
                       >
                         Aprobar
                       </button>
                       <button
                         disabled={pending}
                         onClick={() => run(() => rechazarEmpleadoAction(solicitudId, e.solicitudEmpleadoId))}
-                        className="rounded bg-red-600 px-2 py-1 text-xs text-white disabled:opacity-50"
+                        className="rounded bg-danger px-2 py-1 text-xs text-white disabled:opacity-50"
                       >
                         Rechazar
                       </button>
@@ -114,7 +114,7 @@ export function EmpleadosSolicitud({
                     <button
                       disabled={pending}
                       onClick={() => run(() => quitarEmpleadoAction(solicitudId, e.solicitudEmpleadoId))}
-                      className="rounded border px-2 py-1 text-xs disabled:opacity-50"
+                      className="rounded border border-border px-2 py-1 text-xs disabled:opacity-50"
                       title={
                         e.estadoAprobacion === 'APROBADO'
                           ? 'Este empleado ya está autoaprobado — quitarlo revierte el ranking que se le sumó'
@@ -128,7 +128,7 @@ export function EmpleadosSolicitud({
                     <button
                       disabled={pending}
                       onClick={() => setModalIngresoPara(e.solicitudEmpleadoId)}
-                      className="rounded bg-slate-900 px-2 py-1 text-xs text-white disabled:opacity-50"
+                      className="rounded bg-primary px-2 py-1 text-xs text-white disabled:opacity-50"
                     >
                       Registrar ingreso
                     </button>
@@ -137,7 +137,7 @@ export function EmpleadosSolicitud({
                     <button
                       disabled={pending}
                       onClick={() => run(() => eliminarIngresoAction(solicitudId, e.solicitudEmpleadoId))}
-                      className="rounded border px-2 py-1 text-xs disabled:opacity-50"
+                      className="rounded border border-border px-2 py-1 text-xs disabled:opacity-50"
                     >
                       Quitar ingreso
                     </button>
@@ -147,7 +147,7 @@ export function EmpleadosSolicitud({
             ))}
             {empleados.length === 0 && (
               <tr>
-                <td colSpan={9} className="px-3 py-6 text-center text-slate-400">
+                <td colSpan={9} className="px-3 py-6 text-center text-text-muted">
                   Todavía no se agregaron empleados
                 </td>
               </tr>

@@ -24,7 +24,7 @@ export default async function IbPage() {
           <ImportarExcelGenerico campos={CAMPOS} onGuardarFila={importarIb} />
         </div>
       </div>
-      <p className="text-sm text-slate-500">
+      <p className="text-sm text-text-muted">
         Los rangos no pueden superponerse — el sistema los usa para calcular automáticamente el IB de cada empleado
         según su ranking de horas.
       </p>

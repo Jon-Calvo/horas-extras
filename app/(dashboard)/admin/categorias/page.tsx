@@ -22,14 +22,14 @@ export default async function CategoriasPage() {
   return (
     <div className="space-y-4">
       <h1 className="text-lg font-semibold">Categorías</h1>
-      <p className="text-sm text-slate-500">
+      <p className="text-sm text-text-muted">
         El valor por hora está versionado por vigencia — para cambiarlo entrá al detalle de la categoría en vez de
         editarlo acá (esto solo edita el código/descripción/activo del tipo).
       </p>
 
-      <div className="overflow-x-auto rounded-lg border bg-white">
+      <div className="overflow-x-auto rounded-lg border border-border bg-surface">
         <table className="w-full text-sm">
-          <thead className="border-b bg-slate-50 text-left">
+          <thead className="border-b border-b-border bg-background text-left">
             <tr>
               <th className="px-3 py-2">Código</th>
               <th className="px-3 py-2">Descripción</th>
@@ -41,14 +41,14 @@ export default async function CategoriasPage() {
             {(tipos ?? []).map((t) => {
               const vigente = vigentePorTipo.get(t.id)
               return (
-                <tr key={t.id} className="border-b last:border-0">
+                <tr key={t.id} className="border-b border-b-border last:border-0">
                   <td className="px-3 py-2">{t.codigo}</td>
                   <td className="px-3 py-2">{t.descripcion}</td>
                   <td className="px-3 py-2">
                     {vigente ? `${vigente.moneda} ${Number(vigente.valor_hora).toFixed(2)}` : '— sin valor cargado —'}
                   </td>
                   <td className="px-3 py-2">
-                    <Link href={`/admin/categorias/${t.id}`} className="text-xs text-slate-500 underline">
+                    <Link href={`/admin/categorias/${t.id}`} className="text-xs text-text-muted underline">
                       Ver historial / actualizar valor
                     </Link>
                   </td>

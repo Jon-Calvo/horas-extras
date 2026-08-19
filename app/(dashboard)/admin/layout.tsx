@@ -23,7 +23,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   if (!esAdmin) {
     return (
-      <div className="rounded-lg border bg-white p-6 text-sm text-slate-600">
+      <div className="rounded-lg border border-border bg-surface p-6 text-sm text-text-muted">
         No tenés permisos de administrador para acceder a esta sección.
       </div>
     )
@@ -31,9 +31,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="space-y-4">
-      <nav className="flex flex-wrap gap-2 border-b pb-3">
+      <nav className="flex flex-wrap gap-2 border-b border-b-border pb-3">
         {SECCIONES.map((s) => (
-          <Link key={s.href} href={s.href} className="rounded px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-100">
+          <Link key={s.href} href={s.href} className="rounded px-3 py-1.5 text-sm font-medium text-text-muted hover:bg-text/5">
             {s.label}
           </Link>
         ))}

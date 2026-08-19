@@ -77,52 +77,52 @@ export function PanelOrganizacion({
   }
 
   return (
-    <div className="flex flex-1 flex-col rounded-lg border bg-white">
-      <div className="border-b p-3">
+    <div className="flex flex-1 flex-col rounded-lg border border-border bg-surface">
+      <div className="border-b border-b-border p-3">
         <h2 className="text-sm font-semibold">{titulo}</h2>
         <input
           type="text"
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
           placeholder="Buscar..."
-          className="mt-2 w-full rounded border px-2 py-1 text-sm"
+          className="mt-2 w-full rounded border border-border px-2 py-1 text-sm"
         />
       </div>
 
       <div className="max-h-96 flex-1 overflow-y-auto">
         {!habilitadoParaAlta && items.length === 0 && (
-          <p className="p-4 text-center text-xs text-slate-400">{mensajeSinHabilitar}</p>
+          <p className="p-4 text-center text-xs text-text-muted">{mensajeSinHabilitar}</p>
         )}
         {itemsFiltrados.map((item) => (
           <div
             key={item.id}
             className={`flex items-center justify-between border-b px-3 py-2 text-sm last:border-0 ${
-              seleccionadoId === item.id ? 'bg-slate-100' : 'hover:bg-slate-50'
+              seleccionadoId === item.id ? 'bg-text/8' : 'hover:bg-text/5'
             }`}
           >
             <button
               type="button"
               onClick={() => onSeleccionar?.(item.id)}
-              className={`flex-1 text-left ${!item.activo ? 'text-slate-400 line-through' : ''} ${onSeleccionar ? '' : 'cursor-default'}`}
+              className={`flex-1 text-left ${!item.activo ? 'text-text-muted line-through' : ''} ${onSeleccionar ? '' : 'cursor-default'}`}
             >
               {item.nombre}
             </button>
             <div className="flex items-center gap-2">
-              <button type="button" onClick={() => abrirEditar(item)} className="text-xs text-slate-500 underline">
+              <button type="button" onClick={() => abrirEditar(item)} className="text-xs text-text-muted underline">
                 Editar
               </button>
-              <button type="button" onClick={() => toggle(item)} disabled={pending} className="text-xs text-slate-500 underline disabled:opacity-50">
+              <button type="button" onClick={() => toggle(item)} disabled={pending} className="text-xs text-text-muted underline disabled:opacity-50">
                 {item.activo ? 'Inactivar' : 'Activar'}
               </button>
             </div>
           </div>
         ))}
         {itemsFiltrados.length === 0 && items.length > 0 && (
-          <p className="p-4 text-center text-xs text-slate-400">Sin resultados para "{busqueda}"</p>
+          <p className="p-4 text-center text-xs text-text-muted">Sin resultados para "{busqueda}"</p>
         )}
       </div>
 
-      <div className="border-t p-3">
+      <div className="border-t border-t-border p-3">
         {error && <p className="mb-2 rounded bg-red-50 px-2 py-1.5 text-xs text-red-700">{error}</p>}
 
         {editando === null ? (
@@ -130,7 +130,7 @@ export function PanelOrganizacion({
             type="button"
             onClick={abrirNuevo}
             disabled={!habilitadoParaAlta}
-            className="w-full rounded bg-slate-900 px-3 py-1.5 text-xs text-white disabled:opacity-40"
+            className="w-full rounded bg-primary px-3 py-1.5 text-xs text-white disabled:opacity-40"
             title={habilitadoParaAlta ? undefined : mensajeSinHabilitar}
           >
             + Nuevo
@@ -142,14 +142,14 @@ export function PanelOrganizacion({
               value={nombreForm}
               onChange={(e) => setNombreForm(e.target.value)}
               placeholder="Nombre"
-              className="w-full rounded border px-2 py-1.5 text-sm"
+              className="w-full rounded border border-border px-2 py-1.5 text-sm"
               autoFocus
             />
             <div className="flex gap-2">
-              <button type="button" onClick={guardar} disabled={pending} className="flex-1 rounded bg-slate-900 px-3 py-1.5 text-xs text-white disabled:opacity-50">
+              <button type="button" onClick={guardar} disabled={pending} className="flex-1 rounded bg-primary px-3 py-1.5 text-xs text-white disabled:opacity-50">
                 {pending ? 'Guardando...' : 'Guardar'}
               </button>
-              <button type="button" onClick={() => setEditando(null)} disabled={pending} className="rounded border px-3 py-1.5 text-xs disabled:opacity-50">
+              <button type="button" onClick={() => setEditando(null)} disabled={pending} className="rounded border border-border px-3 py-1.5 text-xs disabled:opacity-50">
                 Cancelar
               </button>
             </div>

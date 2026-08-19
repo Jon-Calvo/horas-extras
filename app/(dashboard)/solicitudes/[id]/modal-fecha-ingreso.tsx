@@ -32,7 +32,7 @@ export function ModalFechaIngreso({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-      <div className="w-full max-w-sm space-y-4 rounded-lg bg-white p-6 shadow-xl">
+      <div className="w-full max-w-sm space-y-4 rounded-lg bg-surface p-6 shadow-xl">
         <h2 className="text-sm font-semibold">{titulo}</h2>
 
         <div className="space-y-1">
@@ -42,20 +42,20 @@ export function ModalFechaIngreso({
             value={valor}
             onChange={(e) => setValor(e.target.value)}
             max={defaultValue}
-            className="w-full rounded border px-3 py-2 text-sm"
+            className="w-full rounded border border-border px-3 py-2 text-sm"
           />
-          <p className="text-xs text-slate-400">Por defecto es ahora — se puede atrasar, no adelantar.</p>
+          <p className="text-xs text-text-muted">Por defecto es ahora — se puede atrasar, no adelantar.</p>
         </div>
 
         <div className="flex justify-end gap-2">
-          <button type="button" onClick={onCancelar} disabled={pending} className="rounded border px-3 py-1.5 text-sm disabled:opacity-50">
+          <button type="button" onClick={onCancelar} disabled={pending} className="rounded border border-border px-3 py-1.5 text-sm disabled:opacity-50">
             Cancelar
           </button>
           <button
             type="button"
             disabled={pending || !valor}
             onClick={() => onConfirmar(`${valor}:00-03:00`)}
-            className="rounded bg-slate-900 px-3 py-1.5 text-sm text-white disabled:opacity-50"
+            className="rounded bg-primary px-3 py-1.5 text-sm text-white disabled:opacity-50"
           >
             {pending ? 'Registrando...' : 'Confirmar ingreso'}
           </button>

@@ -78,6 +78,26 @@ export function parseEstadoSolicitud(
   return esEstadoSolicitud(valor) ? valor : null
 }
 
+/**
+ * Igual que esEstadoSolicitud/parseEstadoSolicitud pero para EstadoEmpleado
+ * (ACTIVO/INACTIVO) — útil para valores provenientes de FormData.
+ */
+export function esEstadoEmpleado(
+  valor: string | null | undefined,
+): valor is EstadoEmpleado {
+  return (
+    valor !== null &&
+    valor !== undefined &&
+    (ESTADO_EMPLEADO as readonly string[]).includes(valor)
+  )
+}
+
+export function parseEstadoEmpleado(
+  valor: string | null | undefined,
+): EstadoEmpleado | null {
+  return esEstadoEmpleado(valor) ? valor : null
+}
+
 // ============================================================
 // Etiquetas para mostrar en UI
 // ============================================================

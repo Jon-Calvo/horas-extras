@@ -9,7 +9,7 @@ export function ResetPasswordForm() {
   const router = useRouter()
 
   return (
-    <form action={formAction} className="w-full max-w-sm space-y-4 rounded-lg border bg-white p-6 shadow-sm">
+    <form action={formAction} className="w-full max-w-sm space-y-4 rounded-lg border border-border bg-surface p-6 shadow-sm">
       <h1 className="text-lg font-semibold">Elegí tu nueva contraseña</h1>
 
       {state.error && <p className="rounded bg-red-50 px-3 py-2 text-sm text-red-700">{state.error}</p>}
@@ -18,7 +18,7 @@ export function ResetPasswordForm() {
         <label htmlFor="password" className="text-sm font-medium">
           Contraseña nueva
         </label>
-        <input id="password" name="password" type="password" required minLength={8} className="w-full rounded border px-3 py-2 text-sm" />
+        <input id="password" name="password" type="password" required minLength={8} className="w-full rounded border border-border px-3 py-2 text-sm" />
       </div>
 
       <div className="space-y-1">
@@ -31,20 +31,20 @@ export function ResetPasswordForm() {
           type="password"
           required
           minLength={8}
-          className="w-full rounded border px-3 py-2 text-sm"
+          className="w-full rounded border border-border px-3 py-2 text-sm"
         />
       </div>
 
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded bg-slate-900 px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
+        className="w-full rounded bg-primary px-3 py-2 text-sm font-medium text-white hover:bg-primary-hover disabled:opacity-50"
       >
         {pending ? 'Guardando...' : 'Guardar contraseña'}
       </button>
 
       {state.success && (
-        <button type="button" onClick={() => router.push('/solicitudes')} className="w-full text-center text-sm text-slate-500 underline">
+        <button type="button" onClick={() => router.push('/solicitudes')} className="w-full text-center text-sm text-text-muted underline">
           Contraseña actualizada — ir al sistema
         </button>
       )}

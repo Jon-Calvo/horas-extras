@@ -54,9 +54,9 @@ export function SolicitudesFiltros({ opciones }: { opciones: Opciones }) {
   }
 
   return (
-    <div className="flex flex-wrap items-end gap-3 rounded-lg border bg-white p-4">
+    <div className="flex flex-wrap items-end gap-3 rounded-lg border border-border bg-surface p-4">
       <div className="space-y-1">
-        <label className="text-xs font-medium text-slate-500">Área</label>
+        <label className="text-xs font-medium text-text-muted">Área</label>
         <select
           value={area}
           onChange={(e) => {
@@ -65,7 +65,7 @@ export function SolicitudesFiltros({ opciones }: { opciones: Opciones }) {
             setProceso('')
             aplicar({ area: e.target.value, sector: '', proceso: '' })
           }}
-          className="rounded border px-2 py-1.5 text-sm"
+          className="rounded border border-border px-2 py-1.5 text-sm"
         >
           <option value="">Todas</option>
           {opciones.areas.map((a) => (
@@ -77,7 +77,7 @@ export function SolicitudesFiltros({ opciones }: { opciones: Opciones }) {
       </div>
 
       <div className="space-y-1">
-        <label className="text-xs font-medium text-slate-500">Sector</label>
+        <label className="text-xs font-medium text-text-muted">Sector</label>
         <select
           value={sector}
           onChange={(e) => {
@@ -85,7 +85,7 @@ export function SolicitudesFiltros({ opciones }: { opciones: Opciones }) {
             setProceso('')
             aplicar({ sector: e.target.value, proceso: '' })
           }}
-          className="rounded border px-2 py-1.5 text-sm"
+          className="rounded border border-border px-2 py-1.5 text-sm"
         >
           <option value="">Todos</option>
           {sectoresFiltrados.map((s) => (
@@ -97,14 +97,14 @@ export function SolicitudesFiltros({ opciones }: { opciones: Opciones }) {
       </div>
 
       <div className="space-y-1">
-        <label className="text-xs font-medium text-slate-500">Proceso</label>
+        <label className="text-xs font-medium text-text-muted">Proceso</label>
         <select
           value={proceso}
           onChange={(e) => {
             setProceso(e.target.value)
             aplicar({ proceso: e.target.value })
           }}
-          className="rounded border px-2 py-1.5 text-sm"
+          className="rounded border border-border px-2 py-1.5 text-sm"
         >
           <option value="">Todos</option>
           {procesosFiltrados.map((p) => (
@@ -116,14 +116,14 @@ export function SolicitudesFiltros({ opciones }: { opciones: Opciones }) {
       </div>
 
       <div className="space-y-1">
-        <label className="text-xs font-medium text-slate-500">Estado</label>
+        <label className="text-xs font-medium text-text-muted">Estado</label>
         <select
           value={estado}
           onChange={(e) => {
             setEstado(e.target.value)
             aplicar({ estado: e.target.value })
           }}
-          className="rounded border px-2 py-1.5 text-sm"
+          className="rounded border border-border px-2 py-1.5 text-sm"
         >
           <option value="">Todos</option>
           {ESTADO_SOLICITUD.map((e) => (
@@ -135,14 +135,14 @@ export function SolicitudesFiltros({ opciones }: { opciones: Opciones }) {
       </div>
 
       <div className="space-y-1">
-        <label className="text-xs font-medium text-slate-500">Solicitante</label>
+        <label className="text-xs font-medium text-text-muted">Solicitante</label>
         <select
           value={solicitante}
           onChange={(e) => {
             setSolicitante(e.target.value)
             aplicar({ solicitante: e.target.value })
           }}
-          className="rounded border px-2 py-1.5 text-sm"
+          className="rounded border border-border px-2 py-1.5 text-sm"
         >
           <option value="">Todos</option>
           {opciones.solicitantes.map((u) => (
@@ -154,14 +154,14 @@ export function SolicitudesFiltros({ opciones }: { opciones: Opciones }) {
       </div>
 
       <div className="space-y-1">
-        <label className="text-xs font-medium text-slate-500">Motivo</label>
+        <label className="text-xs font-medium text-text-muted">Motivo</label>
         <select
           value={motivo}
           onChange={(e) => {
             setMotivo(e.target.value)
             aplicar({ motivo: e.target.value })
           }}
-          className="rounded border px-2 py-1.5 text-sm"
+          className="rounded border border-border px-2 py-1.5 text-sm"
         >
           <option value="">Todos</option>
           {opciones.motivos.map((m) => (
@@ -173,7 +173,7 @@ export function SolicitudesFiltros({ opciones }: { opciones: Opciones }) {
       </div>
 
       <div className="space-y-1">
-        <label className="text-xs font-medium text-slate-500">Desde</label>
+        <label className="text-xs font-medium text-text-muted">Desde</label>
         <input
           type="date"
           value={desde}
@@ -181,12 +181,12 @@ export function SolicitudesFiltros({ opciones }: { opciones: Opciones }) {
             setDesde(e.target.value)
             aplicar({ desde: e.target.value })
           }}
-          className="rounded border px-2 py-1.5 text-sm"
+          className="rounded border border-border px-2 py-1.5 text-sm"
         />
       </div>
 
       <div className="space-y-1">
-        <label className="text-xs font-medium text-slate-500">Hasta</label>
+        <label className="text-xs font-medium text-text-muted">Hasta</label>
         <input
           type="date"
           value={hasta}
@@ -194,11 +194,11 @@ export function SolicitudesFiltros({ opciones }: { opciones: Opciones }) {
             setHasta(e.target.value)
             aplicar({ hasta: e.target.value })
           }}
-          className="rounded border px-2 py-1.5 text-sm"
+          className="rounded border border-border px-2 py-1.5 text-sm"
         />
       </div>
 
-      <button type="button" onClick={limpiar} className="rounded border px-3 py-1.5 text-sm text-slate-600">
+      <button type="button" onClick={limpiar} className="rounded border border-border px-3 py-1.5 text-sm text-text-muted">
         Limpiar filtros
       </button>
     </div>

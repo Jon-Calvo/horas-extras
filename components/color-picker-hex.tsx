@@ -38,13 +38,13 @@ export function ColorPickerHex({
 
   return (
     <div className="space-y-1">
-      <label className="text-xs font-medium text-slate-500">{label}</label>
+      <label className="text-xs font-medium text-text-muted">{label}</label>
       <div className="flex items-center gap-2">
         <input
           type="color"
           value={REGEX_HEX.test(textoLocal) ? textoLocal : value}
           onChange={(e) => onCambiarPicker(e.target.value)}
-          className="h-9 w-12 cursor-pointer rounded border p-0.5"
+          className="h-9 w-12 cursor-pointer rounded border border-border p-0.5"
         />
         <input
           type="text"
@@ -52,7 +52,7 @@ export function ColorPickerHex({
           onChange={(e) => onCambiarTexto(e.target.value)}
           placeholder="#RRGGBB"
           maxLength={7}
-          className={`w-28 rounded border px-2 py-1.5 text-sm font-mono ${error ? 'border-red-400 text-red-600' : ''}`}
+          className={`w-28 rounded border border-border px-2 py-1.5 text-sm font-mono ${error ? 'border-red-400 text-red-600' : ''}`}
         />
       </div>
       {error && <p className="text-xs text-red-600">Formato inválido — usá #RRGGBB (ej: #2563EB)</p>}

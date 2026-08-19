@@ -71,15 +71,15 @@ export function EmpleadosLista({ empleados, opciones, esAdmin }: { empleados: Em
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
           placeholder="Buscar por legajo o nombre..."
-          className="max-w-xs rounded border px-3 py-1.5 text-sm"
+          className="max-w-xs rounded border border-border px-3 py-1.5 text-sm"
         />
         {editando === null && (
-          <button onClick={() => setEditando('NUEVO')} className="rounded bg-slate-900 px-3 py-1.5 text-sm text-white">
+          <button onClick={() => setEditando('NUEVO')} className="rounded bg-primary px-3 py-1.5 text-sm text-white">
             + Nuevo empleado
           </button>
         )}
         {esAdmin && (
-          <button onClick={() => setMostrarFusion((v) => !v)} className="rounded border px-3 py-1.5 text-sm text-slate-600">
+          <button onClick={() => setMostrarFusion((v) => !v)} className="rounded border border-border px-3 py-1.5 text-sm text-text-muted">
             {mostrarFusion ? 'Ocultar fusión de duplicados' : 'Fusionar empleados duplicados'}
           </button>
         )}
@@ -109,9 +109,9 @@ export function EmpleadosLista({ empleados, opciones, esAdmin }: { empleados: Em
         />
       )}
 
-      <div className="overflow-x-auto rounded-lg border bg-white">
+      <div className="overflow-x-auto rounded-lg border border-border bg-surface">
         <table className="w-full text-sm">
-          <thead className="border-b bg-slate-50 text-left">
+          <thead className="border-b border-b-border bg-background text-left">
             <tr>
               <th className="px-3 py-2">Legajo</th>
               <th className="px-3 py-2">Nombre</th>
@@ -125,11 +125,11 @@ export function EmpleadosLista({ empleados, opciones, esAdmin }: { empleados: Em
           </thead>
           <tbody>
             {filtrados.map((e) => (
-              <tr key={e.id} className="border-b last:border-0">
+              <tr key={e.id} className="border-b border-b-border last:border-0">
                 <td className="px-3 py-2">{e.legajo}</td>
                 <td className="px-3 py-2">{e.nombreCompleto}</td>
                 <td className="px-3 py-2">{e.categoriaCodigo}</td>
-                <td className="px-3 py-2 text-xs text-slate-500">
+                <td className="px-3 py-2 text-xs text-text-muted">
                   {[e.areaNombre, e.sectorNombre, e.procesoNombre].filter(Boolean).join(' / ') || '—'}
                 </td>
                 <td className="px-3 py-2">
@@ -140,7 +140,7 @@ export function EmpleadosLista({ empleados, opciones, esAdmin }: { empleados: Em
                 <td className="px-3 py-2">{e.rankingHoras.toFixed(2)}</td>
                 <td className="px-3 py-2">{e.ibDescripcion ?? '—'}</td>
                 <td className="flex gap-2 px-3 py-2">
-                  <button onClick={() => setEditando(e.legajo)} className="text-xs text-slate-500 underline">
+                  <button onClick={() => setEditando(e.legajo)} className="text-xs text-text-muted underline">
                     Editar
                   </button>
                   {/* Botón visible únicamente para ADMIN. La seguridad real
@@ -157,7 +157,7 @@ export function EmpleadosLista({ empleados, opciones, esAdmin }: { empleados: Em
             ))}
             {filtrados.length === 0 && (
               <tr>
-                <td colSpan={8} className="px-3 py-6 text-center text-slate-400">
+                <td colSpan={8} className="px-3 py-6 text-center text-text-muted">
                   Sin resultados
                 </td>
               </tr>
@@ -196,9 +196,9 @@ function PanelFusion({ empleados, onHecho }: { empleados: EmpleadoRow[]; onHecho
   }
 
   return (
-    <div className="space-y-3 rounded-lg border bg-amber-50 p-4">
+    <div className="space-y-3 rounded-lg border border-border bg-amber-50 p-4">
       <p className="text-sm font-medium">Fusionar dos registros que resultaron ser el mismo empleado</p>
-      <p className="text-xs text-slate-600">
+      <p className="text-xs text-text-muted">
         Usalo cuando el mismo empleado quedó cargado dos veces (por ejemplo, una vez sin legajo y otra con legajo real).
         Se reasigna todo el historial (solicitudes, ranking) del que se descarta hacia el que se conserva, y se elimina
         el registro descartado.
@@ -206,8 +206,8 @@ function PanelFusion({ empleados, onHecho }: { empleados: EmpleadoRow[]; onHecho
       {error && <p className="rounded bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <div className="space-y-1">
-          <label className="text-xs font-medium text-slate-500">Conservar (el registro correcto)</label>
-          <select value={conservarId} onChange={(e) => setConservarId(e.target.value)} className="w-full rounded border px-2 py-1.5 text-sm">
+          <label className="text-xs font-medium text-text-muted">Conservar (el registro correcto)</label>
+          <select value={conservarId} onChange={(e) => setConservarId(e.target.value)} className="w-full rounded border border-border px-2 py-1.5 text-sm">
             <option value="">Seleccionar...</option>
             {empleados.map((e) => (
               <option key={e.id} value={e.id}>
@@ -217,8 +217,8 @@ function PanelFusion({ empleados, onHecho }: { empleados: EmpleadoRow[]; onHecho
           </select>
         </div>
         <div className="space-y-1">
-          <label className="text-xs font-medium text-slate-500">Fusionar y eliminar (el duplicado)</label>
-          <select value={fusionarId} onChange={(e) => setFusionarId(e.target.value)} className="w-full rounded border px-2 py-1.5 text-sm">
+          <label className="text-xs font-medium text-text-muted">Fusionar y eliminar (el duplicado)</label>
+          <select value={fusionarId} onChange={(e) => setFusionarId(e.target.value)} className="w-full rounded border border-border px-2 py-1.5 text-sm">
             <option value="">Seleccionar...</option>
             {empleados
               .filter((e) => e.id !== conservarId)
@@ -233,7 +233,7 @@ function PanelFusion({ empleados, onHecho }: { empleados: EmpleadoRow[]; onHecho
       <button
         onClick={confirmar}
         disabled={pending || !conservarId || !fusionarId}
-        className="rounded bg-amber-700 px-3 py-1.5 text-sm text-white disabled:opacity-50"
+        className="rounded bg-warning px-3 py-1.5 text-sm text-white disabled:opacity-50"
       >
         {pending ? 'Fusionando...' : 'Fusionar'}
       </button>

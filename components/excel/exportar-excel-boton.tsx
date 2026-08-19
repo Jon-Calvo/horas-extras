@@ -37,7 +37,7 @@ export function ExportarExcelBoton<T extends Record<string, any>>({
   }
 
   return (
-    <button type="button" onClick={exportar} className="rounded border px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50">
+    <button type="button" onClick={exportar} className="rounded border border-border px-3 py-1.5 text-sm text-text-muted hover:bg-text/5">
       Exportar Excel
     </button>
   )

@@ -23,7 +23,7 @@ export default async function OrganizacionPage({
     <div className="space-y-4">
       <div>
         <h1 className="text-lg font-semibold">Organización</h1>
-        <p className="text-sm text-slate-500">Áreas → Sectores → Procesos. Elegí un área para ver sus sectores, y un sector para ver sus procesos.</p>
+        <p className="text-sm text-text-muted">Áreas → Sectores → Procesos. Elegí un área para ver sus sectores, y un sector para ver sus procesos.</p>
       </div>
       <OrganizacionMaestro areas={areas ?? []} sectores={sectores ?? []} procesos={procesos ?? []} />
     </div>

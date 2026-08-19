@@ -27,7 +27,7 @@ export function construirVariablesCss(
     // Colores estructurales: cambian según el tema.
     '--app-background': estructurales.background,
     '--app-surface': estructurales.surface,
-    '--app-border': estructurales.border,
+    '--app-border border-border': estructurales.border,
     '--app-text': estructurales.text,
     '--app-text-muted': estructurales.textMuted,
   }

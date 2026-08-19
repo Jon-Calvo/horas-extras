@@ -61,7 +61,7 @@ export function ExportarSolicitudesBoton({ filtros }: { filtros: FiltrosSolicitu
   }
 
   return (
-    <button type="button" onClick={exportar} disabled={pending} className="rounded border px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50 disabled:opacity-50">
+    <button type="button" onClick={exportar} disabled={pending} className="rounded border border-border px-3 py-1.5 text-sm text-text-muted hover:bg-text/5 disabled:opacity-50">
       {pending ? 'Exportando...' : 'Exportar detallado'}
     </button>
   )

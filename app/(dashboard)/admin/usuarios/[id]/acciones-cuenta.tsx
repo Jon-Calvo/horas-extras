@@ -16,7 +16,7 @@ export function AccionesCuenta({ usuarioId, email, activo }: { usuarioId: string
   }
 
   return (
-    <div className="max-w-2xl space-y-4 rounded-lg border bg-white p-6">
+    <div className="max-w-2xl space-y-4 rounded-lg border border-border bg-surface p-6">
       <h2 className="text-sm font-semibold">Cuenta</h2>
 
       {mensaje && (
@@ -26,16 +26,16 @@ export function AccionesCuenta({ usuarioId, email, activo }: { usuarioId: string
       )}
 
       <div className="space-y-2">
-        <p className="text-xs font-medium text-slate-500">Restablecer contraseña — elegí una opción</p>
+        <p className="text-xs font-medium text-text-muted">Restablecer contraseña — elegí una opción</p>
         <div className="flex flex-wrap items-end gap-2">
           <div className="space-y-1">
-            <label className="text-xs text-slate-500">Contraseña temporal</label>
+            <label className="text-xs text-text-muted">Contraseña temporal</label>
             <input
               type="text"
               value={passwordTemporal}
               onChange={(e) => setPasswordTemporal(e.target.value)}
               placeholder="Mínimo 8 caracteres"
-              className="rounded border px-2 py-1.5 text-sm"
+              className="rounded border border-border px-2 py-1.5 text-sm"
             />
           </div>
           <button
@@ -46,23 +46,23 @@ export function AccionesCuenta({ usuarioId, email, activo }: { usuarioId: string
                 'Contraseña temporal establecida. Comunicásela al usuario por fuera del sistema.'
               )
             }
-            className="rounded bg-slate-900 px-3 py-1.5 text-sm text-white disabled:opacity-50"
+            className="rounded bg-primary px-3 py-1.5 text-sm text-white disabled:opacity-50"
           >
             Establecer temporal
           </button>
-          <span className="text-xs text-slate-400">o</span>
+          <span className="text-xs text-text-muted">o</span>
           <button
             disabled={pending}
             onClick={() => ejecutar(() => enviarEmailRecuperacion(email), `Email de recuperación enviado a ${email}.`)}
-            className="rounded border px-3 py-1.5 text-sm disabled:opacity-50"
+            className="rounded border border-border px-3 py-1.5 text-sm disabled:opacity-50"
           >
             Enviar email de recuperación
           </button>
         </div>
       </div>
 
-      <div className="border-t pt-4">
-        <p className="text-xs font-medium text-slate-500">Estado de la cuenta</p>
+      <div className="border-t border-t-border pt-4">
+        <p className="text-xs font-medium text-text-muted">Estado de la cuenta</p>
         <button
           disabled={pending}
           onClick={() =>
@@ -71,11 +71,11 @@ export function AccionesCuenta({ usuarioId, email, activo }: { usuarioId: string
               activo ? 'Usuario desactivado.' : 'Usuario activado.'
             )
           }
-          className={`mt-1 rounded px-3 py-1.5 text-sm text-white disabled:opacity-50 ${activo ? 'bg-red-600' : 'bg-green-600'}`}
+          className={`mt-1 rounded px-3 py-1.5 text-sm text-white disabled:opacity-50 ${activo ? 'bg-danger' : 'bg-success'}`}
         >
           {activo ? 'Desactivar usuario' : 'Activar usuario'}
         </button>
-        <p className="mt-1 text-xs text-slate-400">
+        <p className="mt-1 text-xs text-text-muted">
           Un usuario desactivado no puede iniciar sesión. No se puede eliminar físicamente si tiene solicitudes o
           auditoría asociada — la desactivación es la forma segura de darlo de baja.
         </p>

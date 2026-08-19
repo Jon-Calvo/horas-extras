@@ -73,13 +73,13 @@ export function UsuarioForm({
   }
 
   return (
-    <form action={formAction} className="max-w-2xl space-y-4 rounded-lg border bg-white p-6">
+    <form action={formAction} className="max-w-2xl space-y-4 rounded-lg border border-border bg-surface p-6">
       {state.error && <p className="rounded bg-red-50 px-3 py-2 text-sm text-red-700">{state.error}</p>}
 
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1">
           <label className="text-sm font-medium">Nombre completo</label>
-          <input type="text" name="nombreCompleto" defaultValue={valoresIniciales.nombreCompleto} className="w-full rounded border px-3 py-2 text-sm" />
+          <input type="text" name="nombreCompleto" defaultValue={valoresIniciales.nombreCompleto} className="w-full rounded border border-border px-3 py-2 text-sm" />
         </div>
         <div className="space-y-1">
           <label className="text-sm font-medium">Email</label>
@@ -88,23 +88,23 @@ export function UsuarioForm({
             name="email"
             defaultValue={valoresIniciales.email}
             disabled={modo === 'editar'}
-            className="w-full rounded border px-3 py-2 text-sm disabled:bg-slate-50 disabled:text-slate-400"
+            className="w-full rounded border border-border px-3 py-2 text-sm disabled:bg-background disabled:text-text-muted"
           />
-          {modo === 'editar' && <p className="text-xs text-slate-400">El email no se puede cambiar desde acá.</p>}
+          {modo === 'editar' && <p className="text-xs text-text-muted">El email no se puede cambiar desde acá.</p>}
         </div>
       </div>
 
       {modo === 'crear' && (
         <div className="space-y-1">
           <label className="text-sm font-medium">Contraseña inicial</label>
-          <input type="text" name="passwordInicial" className="w-full rounded border px-3 py-2 text-sm" placeholder="Mínimo 8 caracteres" />
+          <input type="text" name="passwordInicial" className="w-full rounded border border-border px-3 py-2 text-sm" placeholder="Mínimo 8 caracteres" />
         </div>
       )}
 
       <div className="grid grid-cols-3 gap-3">
         <div className="space-y-1">
           <label className="text-sm font-medium">Área</label>
-          <select name="areaId" value={areaId} onChange={(e) => onCambiarArea(e.target.value)} className="w-full rounded border px-2 py-1.5 text-sm">
+          <select name="areaId" value={areaId} onChange={(e) => onCambiarArea(e.target.value)} className="w-full rounded border border-border px-2 py-1.5 text-sm">
             <option value="">Sin especificar</option>
             {opciones.areas.map((a) => (
               <option key={a.id} value={a.id}>
@@ -115,7 +115,7 @@ export function UsuarioForm({
         </div>
         <div className="space-y-1">
           <label className="text-sm font-medium">Sector</label>
-          <select name="sectorId" value={sectorId} onChange={(e) => onCambiarSector(e.target.value)} className="w-full rounded border px-2 py-1.5 text-sm" disabled={!areaId}>
+          <select name="sectorId" value={sectorId} onChange={(e) => onCambiarSector(e.target.value)} className="w-full rounded border border-border px-2 py-1.5 text-sm" disabled={!areaId}>
             <option value="">Sin especificar</option>
             {sectoresFiltrados.map((s) => (
               <option key={s.id} value={s.id}>
@@ -126,7 +126,7 @@ export function UsuarioForm({
         </div>
         <div className="space-y-1">
           <label className="text-sm font-medium">Proceso</label>
-          <select name="procesoId" value={procesoId} onChange={(e) => setProcesoId(e.target.value)} className="w-full rounded border px-2 py-1.5 text-sm" disabled={!sectorId}>
+          <select name="procesoId" value={procesoId} onChange={(e) => setProcesoId(e.target.value)} className="w-full rounded border border-border px-2 py-1.5 text-sm" disabled={!sectorId}>
             <option value="">Sin especificar</option>
             {procesosFiltrados.map((p) => (
               <option key={p.id} value={p.id}>
@@ -149,7 +149,7 @@ export function UsuarioForm({
         </div>
       </div>
 
-      <div className="space-y-2 rounded border p-3">
+      <div className="space-y-2 rounded border border-border p-3">
         <p className="text-sm font-medium">Permisos de scope</p>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           {(
@@ -161,8 +161,8 @@ export function UsuarioForm({
             ] as const
           ).map(([name, label, defaultValue]) => (
             <div key={name} className="space-y-1">
-              <label className="text-xs font-medium text-slate-500">{label}</label>
-              <select name={name} defaultValue={defaultValue} className="w-full rounded border px-2 py-1.5 text-sm">
+              <label className="text-xs font-medium text-text-muted">{label}</label>
+              <select name={name} defaultValue={defaultValue} className="w-full rounded border border-border px-2 py-1.5 text-sm">
                 {NIVEL_PERMISO.map((n) => (
                   <option key={n} value={n}>
                     {NIVEL_LABEL[n]}
@@ -178,7 +178,7 @@ export function UsuarioForm({
         </label>
       </div>
 
-      <button type="submit" disabled={pending} className="rounded bg-slate-900 px-3 py-2 text-sm font-medium text-white disabled:opacity-50">
+      <button type="submit" disabled={pending} className="rounded bg-primary px-3 py-2 text-sm font-medium text-white disabled:opacity-50">
         {pending ? 'Guardando...' : modo === 'crear' ? 'Crear usuario' : 'Guardar cambios'}
       </button>
     </form>

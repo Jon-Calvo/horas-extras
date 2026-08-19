@@ -59,7 +59,7 @@ export function ConfiguracionGeneralForm({
   }
 
   return (
-    <div className="max-w-lg space-y-4 rounded-lg border bg-white p-6">
+    <div className="max-w-lg space-y-4 rounded-lg border border-border bg-surface p-6">
       {error && <p className="rounded bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
       {guardado && <p className="rounded bg-green-50 px-3 py-2 text-sm text-green-700">Configuración guardada.</p>}
 
@@ -70,7 +70,7 @@ export function ConfiguracionGeneralForm({
           min="0"
           value={diasMaximosAntiguedad}
           onChange={(e) => setDiasMaximosAntiguedad(e.target.value)}
-          className="w-full rounded border px-3 py-2 text-sm"
+          className="w-full rounded border border-border px-3 py-2 text-sm"
         />
       </div>
 
@@ -92,7 +92,7 @@ export function ConfiguracionGeneralForm({
         <select
           value={rankingPeriodo}
           onChange={(e) => setRankingPeriodo(e.target.value as typeof rankingPeriodo)}
-          className="w-full rounded border px-3 py-2 text-sm"
+          className="w-full rounded border border-border px-3 py-2 text-sm"
         >
           <option value="MENSUAL">Mensual (día 1 de cada mes)</option>
           <option value="TRIMESTRAL">Trimestral (trimestre calendario)</option>
@@ -113,20 +113,20 @@ export function ConfiguracionGeneralForm({
         </label>
       </div>
 
-      <button onClick={guardar} disabled={pending} className="rounded bg-slate-900 px-3 py-2 text-sm font-medium text-white disabled:opacity-50">
+      <button onClick={guardar} disabled={pending} className="rounded bg-primary px-3 py-2 text-sm font-medium text-white disabled:opacity-50">
         {pending ? 'Guardando...' : 'Guardar configuración'}
       </button>
 
-      <div className="border-t pt-4">
-        <p className="text-xs font-medium text-slate-500">
+      <div className="border-t border-t-border pt-4">
+        <p className="text-xs font-medium text-text-muted">
           Reseteo de ranking (automático todos los días a las 03:00 ART — solo actúa si corresponde según el
           período configurado arriba)
         </p>
-        {mensajeReseteo && <p className="mt-1 text-sm text-slate-600">{mensajeReseteo}</p>}
+        {mensajeReseteo && <p className="mt-1 text-sm text-text-muted">{mensajeReseteo}</p>}
         <button
           onClick={forzarReseteo}
           disabled={pendingReseteo}
-          className="mt-2 rounded border border-red-300 px-3 py-1.5 text-sm text-red-700 disabled:opacity-50"
+          className="mt-2 rounded border border-border border-red-300 px-3 py-1.5 text-sm text-red-700 disabled:opacity-50"
         >
           {pendingReseteo ? 'Reseteando...' : 'Forzar reseteo ahora'}
         </button>

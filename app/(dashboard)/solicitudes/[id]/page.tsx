@@ -184,7 +184,7 @@ export default async function SolicitudDetallePage({
   return (
     <div className="space-y-6">
 
-      <div className="rounded-lg border bg-white p-6">
+      <div className="rounded-lg border border-border bg-surface p-6">
 
         <div className="flex items-start justify-between">
 
@@ -193,7 +193,7 @@ export default async function SolicitudDetallePage({
               Solicitud {numeroSolicitud}
             </h1>
 
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-text-muted">
               {solicitud.area_nombre} /{' '}
               {solicitud.sector_nombre}
 
@@ -205,7 +205,7 @@ export default async function SolicitudDetallePage({
             </p>
           </div>
 
-          <span className="rounded bg-slate-100 px-3 py-1 text-sm font-medium">
+          <span className="rounded bg-text/8 px-3 py-1 text-sm font-medium">
             {ESTADO_SOLICITUD_LABEL[estadoSolicitud]}
           </span>
 
@@ -214,7 +214,7 @@ export default async function SolicitudDetallePage({
         <dl className="mt-4 grid grid-cols-2 gap-4 text-sm md:grid-cols-4">
 
           <div>
-            <dt className="text-slate-500">
+            <dt className="text-text-muted">
               Motivo
             </dt>
             <dd>
@@ -223,7 +223,7 @@ export default async function SolicitudDetallePage({
           </div>
 
           <div>
-            <dt className="text-slate-500">
+            <dt className="text-text-muted">
               Inicio
             </dt>
             <dd>
@@ -232,7 +232,7 @@ export default async function SolicitudDetallePage({
           </div>
 
           <div>
-            <dt className="text-slate-500">
+            <dt className="text-text-muted">
               Fin
             </dt>
             <dd>
@@ -241,7 +241,7 @@ export default async function SolicitudDetallePage({
           </div>
 
           <div>
-            <dt className="text-slate-500">
+            <dt className="text-text-muted">
               Importe total
             </dt>
             <dd>
@@ -255,7 +255,7 @@ export default async function SolicitudDetallePage({
         </dl>
 
         {solicitud.observacion && (
-          <p className="mt-4 text-sm text-slate-600">
+          <p className="mt-4 text-sm text-text-muted">
             {solicitud.observacion}
           </p>
         )}

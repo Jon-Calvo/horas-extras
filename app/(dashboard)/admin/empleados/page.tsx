@@ -112,7 +112,7 @@ export default async function EmpleadosPage() {
           />
         </div>
       </div>
-      <p className="text-sm text-slate-500">
+      <p className="text-sm text-text-muted">
         El import por Excel hace upsert por legajo (crea si no existe, actualiza si ya existe) — usa
         rpc_importar_empleado_excel, que resuelve Área/Sector/Proceso por nombre.
       </p>
